@@ -1,23 +1,23 @@
-﻿namespace TextAdventureMaui;
+﻿
+namespace TextAdventureMaui;
 
-public partial class MainPage : ContentPage
+public partial class MainPage
 {
-    int count = 0;
+    private int _count;
 
     public MainPage()
     {
         InitializeComponent();
     }
 
+    private void OnStartClicked(object sender, EventArgs e)
+    {
+        Console.WriteLine("Start Clicked");
+    }
     private void OnCounterClicked(object? sender, EventArgs e)
     {
-        count++;
-
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
-
+        _count++;
+        CounterBtn.Text = _count == 1 ? $"Clicked {_count} time" : $"Clicked {_count} times";
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
 }

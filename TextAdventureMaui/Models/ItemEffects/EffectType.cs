@@ -2,10 +2,8 @@
 {
     public enum EffectType
     {
-        Heal,
-        Damage,
-        Buff,
-        Debuff
+        BuffHp,
+        BuffDamage,
     }
 
 }

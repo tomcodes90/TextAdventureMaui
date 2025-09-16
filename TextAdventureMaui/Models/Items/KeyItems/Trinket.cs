@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+using TextAdventureMaui.Models.ItemEffects;
 
 namespace TextAdventureMaui.Models.Items.KeyItems
 {
-    public class Trinket : Item
+    public class Trinket(string name, string description, ItemEffect effect) : Item(name, description)
     {
-        public Microsoft.Maui.Controls.Effect Effect { get; }
-
-        public Trinket(string name, string description, Microsoft.Maui.Controls.Effect effect)
-            : base(name, description)
-        {
-            Effect = effect;
-        }
+        public ItemEffect Effect { get; } = effect; 
 
         public void Activate(Player player)
         {

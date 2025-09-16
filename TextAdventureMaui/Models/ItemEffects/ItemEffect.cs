@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TextAdventureMaui.Models.ItemEffects
 {
-    public abstract class Effect(EffectType type, int amount) : IEffect
+    public abstract class ItemEffect(EffectType type, string description, int amount)
     {
         public EffectType Type { get; protected set; } = type;
+        public string Description { get; protected set; } = description;
         public int Amount { get; protected set; } = amount;
 
         public abstract void Apply(Player player);
