@@ -1,11 +1,9 @@
-﻿
-
-namespace TextAdventureMaui.Models.Items
+﻿namespace TextAdventureMaui.Models.Items
 {
     // Encapsulates inventory logic
     public class Inventory
     {
-        private Dictionary<Item, int> items = new Dictionary<Item, int>();
+        private readonly Dictionary<Item, int> items = new();
 
         public void AddItem(Item item, int amount = 1)
         {
@@ -18,29 +16,37 @@ namespace TextAdventureMaui.Models.Items
             }
             else
             {
-               
+                // Each unique non-stackable item gets its own entry
                 for (int i = 0; i < amount; i++)
-                    items[new Item(item.Name, item.Description, false)] = 1;
+                    items[item] = 1; // Key is already unique since it's a distinct object
             }
         }
 
         public bool RemoveItem(Item item, int amount = 1)
         {
-            if (items.ContainsKey(item))
+            if (items.TryGetValue(item, out var currentAmount))
             {
-                if (items[item] >= amount)
+                if (item.IsStackable)
                 {
-                    items[item] -= amount;
-                    if (items[item] == 0)
-                        items.Remove(item);
-                    return true;
+                    if (currentAmount >= amount)
+                    {
+                        items[item] -= amount;
+                        if (items[item] == 0)
+                            items.Remove(item);
+                        return true;
+                    }
+                }
+                else
+                {
+                    // Just remove the specific instance
+                    return items.Remove(item);
                 }
             }
             return false;
         }
 
         public int GetQuantity(Item item) =>
-            items.ContainsKey(item) ? items[item] : 0;
+            items.TryGetValue(item, out var qty) ? qty : 0;
 
         public IReadOnlyDictionary<Item, int> GetAllItems() => items;
 
@@ -57,5 +63,4 @@ namespace TextAdventureMaui.Models.Items
                 Console.WriteLine($"- {kvp.Key.Name} x{kvp.Value}");
         }
     }
-
 }

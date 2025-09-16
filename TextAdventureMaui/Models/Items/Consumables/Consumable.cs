@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextAdventureMaui.Models.Items
+namespace TextAdventureMaui.Models.Items.Consumables
 {
-    internal class Hammer
+    internal class Consumable
     {
     }
 }
