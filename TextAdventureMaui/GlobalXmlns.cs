@@ -1,0 +1,2 @@
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/dotnet/maui/global", "TextAdventureMaui")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/dotnet/maui/global", "TextAdventureMaui.Pages")]
