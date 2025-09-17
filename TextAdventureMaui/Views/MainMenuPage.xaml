@@ -1,12 +1,96 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TextAdventureMaui.Views.NewPage1"
-             Title="NewPage1">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="TextAdventureMaui.Views.MainMenuPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+
+    <Grid RowDefinitions="*,Auto"
+          ColumnDefinitions="Auto,*">
+
+        <!-- Title centered -->
+        <Image Source="title.png"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               VerticalOptions="Start"
+               HorizontalOptions="Center"
+               Aspect="AspectFit"
+               HeightRequest="400" />
+
+        <!-- Menu bottom-left -->
+        <VerticalStackLayout Grid.Row="1" Grid.Column="0"
+                     Spacing="10"
+                     Padding="50"
+                     VerticalOptions="End"
+                     HorizontalOptions="Start">
+
+            <!-- Start New Game Button -->
+            <Border BackgroundColor="Transparent"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 8"
+            WidthRequest="320">
+                <Grid Padding="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Icon -->
+                    <Image Source="adventurer.png"
+                   Grid.Column="0"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   HeightRequest="28"
+                   WidthRequest="28"
+                   Aspect="AspectFit"/>
+
+                    <!-- Text -->
+                    <Label Text="START NEW GAME"
+                   Grid.Column="1"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   FontSize="28"
+                   TextColor="{StaticResource TextPrimary}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding StartCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Border>
+
+            <!-- Settings Button -->
+            <Border BackgroundColor="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 8" WidthRequest="320">
+                <Grid Padding="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="settings.png" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="28" WidthRequest="28" Aspect="AspectFit"/>
+                    <Label Text="SETTINGS" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start" FontSize="28" TextColor="{StaticResource TextPrimary}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SettingsCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Border>
+
+            <!-- Quit Button -->
+            <Border BackgroundColor="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 8" WidthRequest="320">
+                <Grid Padding="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="exit.png" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="28" WidthRequest="28" Aspect="AspectFit"/>
+                    <Label Text="QUIT" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start" FontSize="28" TextColor="{StaticResource TextPrimary}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExitCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Border>
+
+        </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>

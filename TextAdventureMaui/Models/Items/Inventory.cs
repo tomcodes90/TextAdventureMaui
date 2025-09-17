@@ -3,7 +3,7 @@
     // Encapsulates inventory logic
     public class Inventory
     {
-        private readonly Dictionary<Item, int> items = new();
+        private readonly Dictionary<Item, int> items = [];
 
         public void AddItem(Item item, int amount = 1)
         {

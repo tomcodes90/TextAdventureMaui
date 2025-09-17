@@ -65,10 +65,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ViewModels\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Update="Views\MainMenuPage.xaml.cs">
         <DependentUpon>MainMenuPage.xaml</DependentUpon>
       </Compile>
