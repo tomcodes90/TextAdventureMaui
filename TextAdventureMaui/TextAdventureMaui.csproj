@@ -86,6 +86,9 @@
       <MauiXaml Update="Views\MainMenuPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <MauiXaml Update="Views\Controls\MenuButton.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="Views\SettingsPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
