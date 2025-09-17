@@ -1,12 +1,20 @@
 using TextAdventureMaui.ViewModels;
+using Microsoft.Maui.Controls;
 
 namespace TextAdventureMaui.Views;
 
 public partial class MainMenuPage : ContentPage
 {
-	public MainMenuPage()
-	{
+    private MainMenuViewModel ViewModel => BindingContext as MainMenuViewModel;
+
+    public MainMenuPage()
+    {
         InitializeComponent();
-		BindingContext = new MainMenuViewModel();
+        BindingContext = new MainMenuViewModel();
+    }
+
+    protected override bool OnBackButtonPressed()
+    {
+        return true; // disable Android back button if desired
     }
 }

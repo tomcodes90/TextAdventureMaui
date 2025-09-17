@@ -5,33 +5,40 @@
              Shell.NavBarIsVisible="False"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
 
-    <Grid RowDefinitions="*,Auto"
-          ColumnDefinitions="Auto,*">
+    <Grid RowDefinitions="*" ColumnDefinitions="*">
 
-        <!-- Title centered -->
-        <Image Source="title.png"
-               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               VerticalOptions="Start"
-               HorizontalOptions="Center"
-               Aspect="AspectFit"
-               HeightRequest="400" />
+        <!-- Full-screen background -->
+        <Image Source="main.png"
+               Aspect="AspectFill"
+               VerticalOptions="Fill"
+               HorizontalOptions="Fill" />
 
-        <!-- Menu bottom-left -->
-        <VerticalStackLayout Spacing="10" Padding="50" VerticalOptions="End" HorizontalOptions="Start">
+        <!-- Foreground content -->
+        <Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,*">
+            
+            <!-- Menu bottom-left -->
+            <VerticalStackLayout Spacing="10" Padding="50"
+                                 Grid.Row="1" Grid.Column="0"
+                                 VerticalOptions="End"
+                                 HorizontalOptions="Start">
+                <controls:NarratorDialogue
+                    Text="Welcome, hero! Are you ready to start your adventure?"
+                    Icon="narrator.png" />
+    
+                <controls:MenuButton Text="START NEW GAME"
+                                     Icon="adventurer.png"
+                                     Command="{Binding StartCommand}" />
 
-            <controls:MenuButton Text="START NEW GAME"
-                         Icon="adventurer.png"
-                         Command="{Binding StartCommand}" />
+                <controls:MenuButton Text="SETTINGS"
+                                     Icon="settings.png"
+                                     Command="{Binding SettingsCommand}" />
 
-            <controls:MenuButton Text="SETTINGS"
-                         Icon="settings.png"
-                         Command="{Binding SettingsCommand}" />
+                <controls:MenuButton Text="QUIT"
+                                     Icon="exit.png"
+                                     Command="{Binding ExitCommand}" />
 
-            <controls:MenuButton Text="QUIT"
-                         Icon="exit.png"
-                         Command="{Binding ExitCommand}" />
+            </VerticalStackLayout>
 
-        </VerticalStackLayout>
-
+        </Grid>
     </Grid>
 </ContentPage>

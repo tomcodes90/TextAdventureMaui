@@ -1,4 +1,5 @@
- // MenuButton.xaml<ContentView
+
+ <ContentView
     x:Class="TextAdventureMaui.Views.Controls.MenuButton"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
@@ -8,8 +9,8 @@
             StrokeThickness="0"
             StrokeShape="RoundRectangle 8">
         <Grid ColumnDefinitions="50,*" Padding="12">
-            <Image x:Name="IconImage" Grid.Column="0" HeightRequest="28" WidthRequest="28"/>
-            <Label x:Name="TextLabel" Grid.Column="1" VerticalOptions="Center" FontSize="28"/>
+            <Image x:Name="IconImage" Grid.Column="0" HeightRequest="36" WidthRequest="36"/>
+            <Label x:Name="TextLabel" Grid.Column="1" VerticalOptions="Center" FontSize="36" CharacterSpacing="2"/>
         </Grid>
     </Border>
 </ContentView>

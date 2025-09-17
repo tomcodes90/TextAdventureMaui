@@ -1,0 +1,31 @@
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TextAdventureMaui.Views.Controls.NarratorDialogue"
+    x:Name="Root">
+
+    <Frame
+        Padding="16"
+        CornerRadius="12"
+        BackgroundColor="{StaticResource BackgroundLight}"
+        HasShadow="True"
+        HorizontalOptions="Center"
+        VerticalOptions="End"
+        Margin="20">
+
+        <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+            <Image Source="{Binding Source={x:Reference Root}, Path=Icon}"
+                   HeightRequest="40" WidthRequest="40"
+                   HorizontalOptions="Start"/>
+
+            <Label x:Name="Label"
+                   TextColor="{StaticResource TextPrimary}"
+                   FontSize="18"
+                   LineHeight="1.4"
+                   CharacterSpacing="1"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+    </Frame>
+</ContentView>

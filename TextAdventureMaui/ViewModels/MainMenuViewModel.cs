@@ -17,7 +17,6 @@ public class MainMenuViewModel
 
     private void OnStart()
     {
-        // For now just show a message
         App.Current.MainPage.DisplayAlert("Main Menu", "Starting the game...", "OK");
     }
 
@@ -28,7 +27,6 @@ public class MainMenuViewModel
 
     private void OnExit()
     {
-        // This closes the app on desktop / Android
         System.Diagnostics.Process.GetCurrentProcess().CloseMainWindow();
     }
 }
