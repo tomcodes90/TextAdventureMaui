@@ -1,82 +1,53 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
              x:Class="TextAdventureMaui.Views.BattlePage"
              Title="Battle"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
 
-    <Grid RowDefinitions="2*,3*,2*">
+    <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*">
 
-        <!-- Enemy (Top Left) -->
-        <Border Grid.Row="0"
-                Stroke="{StaticResource DangerBrush}" StrokeShape="RoundRectangle 20"
-                BackgroundColor="#22000000"
-                HorizontalOptions="Start" VerticalOptions="Start" WidthRequest="160" Padding="10">
-            <VerticalStackLayout Spacing="5">
-                <Image Source="maxime.png" HeightRequest="80" Aspect="AspectFit"/>
-                <Label Text="{Binding Enemy.Name}" FontSize="18" HorizontalOptions="Center" TextColor="{StaticResource TextPrimaryBrush}" />
+        <!-- Enemy (Top Left, 1/4 height, 1/2 width) -->
+        <controls:BattleCharacterView Grid.Row="0" Grid.Column="0"
+                                      Image="maxime.png"
+                                      CharacterName="{Binding Enemy.Name}"
+                                      HpPercent="{Binding EnemyHpPercent}"
+                                      BorderBrush="{StaticResource ActionPrimary}"
+                                      BarBrush="{StaticResource ActionPrimary}"
+                                      HorizontalOptions="Fill"
+                                      VerticalOptions="Fill"/>
 
-                <!-- HP Bar -->
-                <Border HeightRequest="20"
-                        Stroke="{StaticResource DangerBrush}"
-                        StrokeThickness="1"
-                      
-                        BackgroundColor="{StaticResource Gray700Brush}">
-                    <ProgressBar Progress="{Binding EnemyHpPercent}"
-                                 BackgroundColor="Transparent"
-                                 ProgressColor="{StaticResource DangerBrush}" />
-                </Border>
+        <!-- Player (Bottom Right, 1/4 height, 1/2 width) -->
+        <controls:BattleCharacterView Grid.Row="3" Grid.Column="1"
+                                      Image="ashita.png"
+                                      CharacterName="{Binding Player.Name}"
+                                      HpPercent="{Binding PlayerHpPercent}"
+                                      BorderBrush="{StaticResource ActionPrimary}"
+                                      BarBrush="{StaticResource ActionPrimary}"
+                                      HorizontalOptions="Fill"
+                                      VerticalOptions="Fill"/>
 
-            </VerticalStackLayout>
+        <!-- Log / Command Menu (Bottom Left, 1/4 height, 1/2 width) -->
+        <Border Grid.Row="3" Grid.Column="0"
+                Stroke="{StaticResource Gray500Brush}" StrokeShape="RoundRectangle 0"
+                BackgroundColor="{StaticResource Gray900}" Padding="15">
+            <Grid>
+                <Label Text="{Binding BattleLog}" FontSize="16"
+                       HorizontalOptions="Center" VerticalOptions="Center"
+                       TextColor="{StaticResource TextPrimary}"
+                       LineBreakMode="WordWrap"/>
+
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       VerticalOptions="End" Spacing="15">
+                    <Button Text="Attack" Command="{Binding PlayerAttackCommand}" />
+                    <Button Text="Item" />
+                    <Button Text="Defend" />
+                </HorizontalStackLayout>
+            </Grid>
         </Border>
 
-        <!-- Middle space (animations, attacks, etc.) -->
-        <Grid Grid.Row="1"/>
-
-        <!-- Bottom Panel -->
-        <Grid Grid.Row="2" ColumnDefinitions="2*,1*">
-
-            <!-- Log / Command Menu (left side) -->
-            <Border Grid.Column="0"
-                    Stroke="{StaticResource Gray500Brush}" StrokeShape="RoundRectangle 0"
-                    BackgroundColor="{StaticResource Gray900Brush}" Padding="15">
-                <Grid>
-                    <Label Text="{Binding BattleLog}" FontSize="16"
-                           HorizontalOptions="Center" VerticalOptions="Center"
-                           LineBreakMode="WordWrap"/>
-
-                    <HorizontalStackLayout HorizontalOptions="Center"
-                                           VerticalOptions="End" Spacing="15">
-                        <Button Text="Attack" Command="{Binding PlayerAttackCommand}" />
-                        <Button Text="Item" />
-                        <Button Text="Defend" />
-                    </HorizontalStackLayout>
-                </Grid>
-            </Border>
-
-            <!-- Player (right side) -->
-            <Border Grid.Column="1"
-                    Stroke="{StaticResource ActionPrimaryBrush}" StrokeShape="RoundRectangle 20"
-                    BackgroundColor="#22000022"
-                    HorizontalOptions="End" VerticalOptions="Center" WidthRequest="150" Padding="10">
-                <VerticalStackLayout Spacing="5">
-                    <Image Source="ashita.png" HeightRequest="80" Aspect="AspectFit"/>
-                    <Label Text="{Binding Player.Name}" FontSize="18" HorizontalOptions="Center" TextColor="{StaticResource TextPrimaryBrush}" />
-
-                    <!-- HP Bar -->
-                    <Border HeightRequest="20"
-                            Stroke="{StaticResource ActionPrimaryBrush}"
-                            StrokeThickness="1"
-                            
-                            BackgroundColor="{StaticResource Gray700Brush}">
-                        <ProgressBar Progress="{Binding PlayerHpPercent}"
-                                     BackgroundColor="Transparent"
-                                     ProgressColor="{StaticResource ActionPrimaryBrush}" />
-                    </Border>
-
-                </VerticalStackLayout>
-            </Border>
-
-        </Grid>
-
+        <!-- Middle rows (row 1 + 2, both columns) = battle animation area -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
 </ContentPage>

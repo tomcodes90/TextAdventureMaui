@@ -10,19 +10,7 @@
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource ActionPrimary}, Dark={StaticResource TextPrimary}}" />
     </Style>
-    <Style TargetType="ProgressBar">
-        <!-- Fill color of the bar -->
-        <Setter Property="ProgressColor" Value="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource Danger}}" />
 
-        <!-- Bar background (unfilled part) -->
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray700}}" />
-
-        <!-- Make it thicker -->
-        <Setter Property="HeightRequest" Value="20" />
-        <Setter Property="HorizontalOptions" Value="Fill" />
-        <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="Margin" Value="0,5" />
-    </Style>
 
 
 

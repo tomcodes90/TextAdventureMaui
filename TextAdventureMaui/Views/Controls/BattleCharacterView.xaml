@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TextAdventureMaui.Views.Controls"
+             x:Class="TextAdventureMaui.Views.Controls.BattleCharacterView"
+              >
+
+    <Border Stroke="{Binding BorderBrush, Source={RelativeSource AncestorType={x:Type local:BattleCharacterView}}}"
+            StrokeThickness="3"
+            BackgroundColor="{StaticResource BackgroundDark}"
+            Padding="20">
+
+        <HorizontalStackLayout Spacing="10">
+
+            <!-- Portrait -->
+            <Image Source="{Binding Image, Source={RelativeSource AncestorType={x:Type local:BattleCharacterView}}}"
+                   Aspect="AspectFit"
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="Center"/>
+
+            <!-- Right side -->
+            <FlexLayout Direction="Column"
+                        JustifyContent="SpaceEvenly"
+                        Margin="20"
+                        BindableLayout.ItemsSource="{x:Null}">
+
+                <!-- Name -->
+                <Label Text="{Binding CharacterName, Source={RelativeSource AncestorType={x:Type local:BattleCharacterView}}}"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource TextPrimary}"/>
+                <HorizontalStackLayout Spacing="10"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="FillAndExpand">
+
+                    <!-- Health icon -->
+                    <Image Source="health.png"
+                           HeightRequest="28"
+                           WidthRequest="28"
+                           Aspect="AspectFit"
+                           VerticalOptions="Center"/>
+
+                    <!-- HP Bar -->
+                    <Border HeightRequest="30"
+                            WidthRequest="500"
+                            Stroke="{Binding BorderBrush, Source={RelativeSource AncestorType={x:Type local:BattleCharacterView}}}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource Gray700}"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center">
+
+                        <ProgressBar x:Name="HpProgress"
+                                     Progress="{Binding HpPercent, Source={RelativeSource AncestorType={x:Type local:BattleCharacterView}}}"
+                                     BackgroundColor="Transparent"
+                                     ProgressColor="{Binding BarBrush, Source={RelativeSource AncestorType={x:Type local:BattleCharacterView}}}"
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="Center"
+                                     ScaleY="7"/>
+                    </Border>
+                </HorizontalStackLayout>
+
+            </FlexLayout>
+
+        </HorizontalStackLayout>
+    </Border>
+</ContentView>

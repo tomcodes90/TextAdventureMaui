@@ -13,6 +13,8 @@
             <converters:HpConverter x:Key="HpConverter" />
             <converters:HpWidthConverter x:Key="HpWidthConverter" />
             <converters:HpPercentageConverter x:Key="HpPercentageConverter" />
+            <converters:PercentageToStarConverter x:Key="PercentageToStarConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
