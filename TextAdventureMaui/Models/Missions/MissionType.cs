@@ -9,9 +9,9 @@ namespace TextAdventureMaui.Models.Missions
     public enum MissionType
     {
         Tutorial,
-        Mission_1,
-        Mission_2,
-        Mission_3,
+        Combat,
+        Dobble,
+        Puzzle,
 
     }
 }

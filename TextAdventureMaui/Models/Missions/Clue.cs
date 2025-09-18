@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextAdventureMaui.Models.Items.Consumables
+namespace TextAdventureMaui.Models.Missions
 {
-    internal class Consumable
+    public class Clue
     {
     }
 }

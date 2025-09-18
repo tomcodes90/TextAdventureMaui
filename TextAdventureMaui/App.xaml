@@ -1,7 +1,6 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TextAdventureMaui"
+             xmlns:converters="clr-namespace:TextAdventureMaui.Converters"
              x:Class="TextAdventureMaui.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,6 +8,11 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Register converter -->
+            <converters:HpConverter x:Key="HpConverter" />
+            <converters:HpWidthConverter x:Key="HpWidthConverter" />
+            <converters:HpPercentageConverter x:Key="HpPercentageConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

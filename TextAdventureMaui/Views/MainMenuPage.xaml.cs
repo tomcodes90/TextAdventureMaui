@@ -5,16 +5,14 @@ namespace TextAdventureMaui.Views;
 
 public partial class MainMenuPage : ContentPage
 {
-    private MainMenuViewModel ViewModel => BindingContext as MainMenuViewModel;
-
-    public MainMenuPage()
+    public MainMenuPage(MainMenuViewModel vm)
     {
         InitializeComponent();
-        BindingContext = new MainMenuViewModel();
+        BindingContext = vm; // DI injects the ViewModel with audio service
     }
 
     protected override bool OnBackButtonPressed()
     {
-        return true; // disable Android back button if desired
+        return true; // disables Android back button
     }
 }

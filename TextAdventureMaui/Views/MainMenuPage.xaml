@@ -9,9 +9,9 @@
 
         <!-- Full-screen background -->
         <Image Source="main.png"
-               Aspect="AspectFill"
-               VerticalOptions="Fill"
-               HorizontalOptions="Fill" />
+       Aspect="Fill"
+       HorizontalOptions="Fill"
+       VerticalOptions="Fill" />
 
         <!-- Foreground content -->
         <Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,*">

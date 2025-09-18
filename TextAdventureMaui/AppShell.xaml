@@ -10,5 +10,9 @@
         Title="Main Menu"
         ContentTemplate="{DataTemplate views:MainMenuPage}"
         Route="MainMenuPage" />
+    <ShellContent
+    Title="Battle"
+    ContentTemplate="{DataTemplate views:BattlePage}"
+    Route="MainMenuPage" />
 </Shell>
 

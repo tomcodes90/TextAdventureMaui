@@ -10,10 +10,21 @@
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource ActionPrimary}, Dark={StaticResource TextPrimary}}" />
     </Style>
-
     <Style TargetType="ProgressBar">
-        <Setter Property="ProgressColor" Value="{AppThemeBinding Light={StaticResource ActionPrimary}, Dark={StaticResource TextPrimary}}" />
+        <!-- Fill color of the bar -->
+        <Setter Property="ProgressColor" Value="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource Danger}}" />
+
+        <!-- Bar background (unfilled part) -->
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray700}}" />
+
+        <!-- Make it thicker -->
+        <Setter Property="HeightRequest" Value="20" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Margin" Value="0,5" />
     </Style>
+
+
 
     <!-- Label -->
     <Style TargetType="Label">
@@ -82,6 +93,22 @@
         </Setter>
     </Style>
 
+    <Style x:Key="CardBorderStyle" TargetType="Border">
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="8"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Stroke" Value="{StaticResource MysticBrush}"/>
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}"/>
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="{StaticResource MysticBrush}" Opacity="0.3" Radius="6" Offset="2,2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
     <!-- ===================== -->
