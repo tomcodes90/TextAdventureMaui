@@ -1,24 +1,46 @@
-﻿
-using TextAdventureMaui.Views;
-
-namespace TextAdventureMaui.Models.Missions
+﻿namespace TextAdventureMaui.Models.Missions
 {
-    public class DobbleMission : IMission
+    public class DobbleMission : Mission
     {
-        public string Title => "Dobble Match!";
-        public string Description => "Find the matching symbol before time runs out.";
+        public List<DobbleChallenge> Challenges { get; }
 
-        public bool IsCompleted { get; private set; }
-        public bool IsFailed { get; private set; }
-
-        public async Task StartAsync()
+        public DobbleMission(
+            string name,
+            string description,
+            string backgroundImage,
+            string musicTrack,
+            List<DobbleChallenge> challenges
+        ) : base(name, description, backgroundImage, musicTrack)
         {
-            // Navigate to Dobble mini-game page
-            await Shell.Current.GoToAsync(nameof(DobblePage));
+            Challenges = challenges;
         }
 
-        public void Complete() => IsCompleted = true;
-        public void Fail() => IsFailed = true;
-    }
+        public override void Start(Player player)
+        {
+            Console.WriteLine($"Mission: {Name}");
+            bool allCorrect = true;
 
+            foreach (var challenge in Challenges)
+            {
+                Console.WriteLine("Find the common symbol!");
+                Console.WriteLine($"Card1: {string.Join(", ", challenge.Card1.Symbols)}");
+                Console.WriteLine($"Card2: {string.Join(", ", challenge.Card2.Symbols)}");
+
+                string input = Console.ReadLine() ?? string.Empty;
+                if (!input.Equals(challenge.CommonSymbol, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Wrong! The right answer was " + challenge.CommonSymbol);
+                    allCorrect = false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Correct!");
+                }
+            }
+
+            if (allCorrect)
+                IsCompleted = true;
+        }
+    }
 }

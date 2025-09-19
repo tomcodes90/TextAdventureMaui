@@ -1,27 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TextAdventureMaui.Views;
-namespace TextAdventureMaui.Models.Missions
+﻿namespace TextAdventureMaui.Models.Missions
 {
-    public class PuzzleMission : IMission
+    public class PuzzleMission : Mission
     {
-        public string Title { get; set; } = "Solve the Puzzle!";
-        public string Description { get; set; } = "Find the clues and solve the puzzle.";
-        public bool IsCompleted { get; private set; } = false;
-        public bool IsFailed { get; private set; } = false;
+        public List<Question> Questions { get; }
 
-        public Puzzle Puzzle { get; set; } = new();
-
-        public Task StartAsync()
+        public PuzzleMission(
+            string name,
+            string description,
+            string backgroundImage,
+            string musicTrack,
+            List<Question> questions
+        ) : base(name, description, backgroundImage, musicTrack)
         {
-            // Here you would navigate to a PuzzlePage in MAUI
-            return Shell.Current.GoToAsync(nameof(PuzzlePage));
+            Questions = questions;
         }
 
-        public void Complete() => IsCompleted = true;
-        public void Fail() => IsFailed = true;
+        public override void Start(Player player)
+        {
+            Console.WriteLine($"Mission: {Name}");
+            bool allCorrect = true;
+
+            foreach (var q in Questions)
+            {
+                Console.WriteLine(q.Text);
+                for (int i = 0; i < q.Answers.Count; i++)
+                    Console.WriteLine($"{i + 1}. {q.Answers[i]}");
+
+                string input = Console.ReadLine() ?? string.Empty;
+                if (!q.IsCorrect(input))
+                {
+                    Console.WriteLine("Wrong answer!");
+                    allCorrect = false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Correct!");
+                }
+            }
+
+            if (allCorrect)
+                IsCompleted = true;
+        }
     }
 }

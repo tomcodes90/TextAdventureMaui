@@ -1,24 +1,40 @@
-﻿
-using TextAdventureMaui.Views;
+﻿using TextAdventureMaui.Models;
+using TextAdventureMaui.Models.Dialogues;
+using TextAdventureMaui.Models.Entities;
+using TextAdventureMaui.Models.Missions;
 
-namespace TextAdventureMaui.Models.Missions
+public class BattleMission : Mission
 {
-    public class BattleMission : IMission
+    public Enemy Enemy { get; }
+
+    public BattleMission(
+        string name,
+        string description,
+        string backgroundImage,
+        string musicTrack,
+        Enemy enemy,
+        List<DialogueLine>? introDialogue = null,
+        List<DialogueLine>? outroDialogue = null)
+        : base(name, description, backgroundImage, musicTrack, introDialogue, outroDialogue)
     {
-        public string Title => "Battle!";
-        public string Description => "Defeat the angry dishwasher.";
-
-        public bool IsCompleted { get; private set; }
-        public bool IsFailed { get; private set; }
-
-        public async Task StartAsync()
-        {
-            // Launch battle screen
-            await Shell.Current.GoToAsync(nameof(BattlePage));
-        }
-
-        public void Complete() => IsCompleted = true;
-        public void Fail() => IsFailed = true;
+        Enemy = enemy;
     }
 
+    public override void Start(Player player)
+    {
+        Console.WriteLine($"Mission: {Name}");
+
+        PlayDialogue(IntroDialogue);
+
+        Console.WriteLine($"Enemy {Enemy.Name} appears!");
+        // TODO: Hook into BattleService here
+
+        // Simulate win for now
+        IsCompleted = true;
+
+        if (IsCompleted)
+        {
+            PlayDialogue(OutroDialogue);
+        }
+    }
 }

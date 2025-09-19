@@ -14,4 +14,5 @@ namespace TextAdventureMaui.Models.Entities
         Dragon,
         Cat
     }
+
 }

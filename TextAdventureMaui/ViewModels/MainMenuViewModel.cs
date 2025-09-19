@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Plugin.Maui.Audio;
 using TextAdventureMaui.Models;
+using TextAdventureMaui.Models.Entities;
 using TextAdventureMaui.Views;
 
 namespace TextAdventureMaui.ViewModels;

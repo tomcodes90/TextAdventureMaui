@@ -1,28 +1,44 @@
 ﻿
-
 namespace TextAdventureMaui.Models.Missions;
-
 
 public class Room
 {
-    public int Id { get; set; }
-    public required string Name { get; set; }
-    public required string Description { get; set; }
+    public int Id { get; }
+    public string Name { get; }
+    public string Description { get; }
+    public string BackgroundImage { get; }
+    public string MusicTrack { get; }
+    public bool IsExplored { get; private set; }
+    public Mission Mission { get; }
+    public int? NextRoomId { get; }
 
-    // Challenge in this room (battle, puzzle, mini-game, etc.)
-    public required IMission Mission { get; set; }
+    public Room(int id, string name, string description, string backgroundImage, string musicTrack, Mission mission, int? nextRoomId)
+    {
+        Id = id;
+        Name = name;
+        Description = description;
+        BackgroundImage = backgroundImage;
+        MusicTrack = musicTrack;
+        Mission = mission;
+        NextRoomId = nextRoomId;
+    }
 
-    // Clues found in the room
-    public List<Clue> Clues { get; set; } = new();
+    public void Enter(Player player)
+    {
+        Console.WriteLine($"You enter {Name}.");
+        Console.WriteLine($"Background: {BackgroundImage}, Music: {MusicTrack}");
 
-    // Puzzle to unlock the next room (optional)
-    public Puzzle? Puzzle { get; set; }
+        if (!IsExplored)
+            Explore(player);
+        else
+            Console.WriteLine($"{Name} has already been explored.");
+    }
 
-    // State
-    public bool MissionCompleted { get; set; } = false;
-    public bool PuzzleSolved { get; set; } = false;
-
-    // Navigation
-    public int NextRoomId { get; set; }
+    private void Explore(Player player)
+    {
+        Console.WriteLine(Description);
+        Mission.Start(player);
+        if (Mission.IsCompleted)
+            IsExplored = true;
+    }
 }
-
