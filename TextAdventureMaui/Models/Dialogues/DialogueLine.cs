@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextAdventureMaui.Models.Dialogues
+﻿namespace TextAdventureMaui.Models.Dialogues
 {
     public class DialogueLine
     {
         public string Speaker { get; }
         public string Text { get; }
+        public string? Portrait { get; }
 
-        public DialogueLine(string speaker, string text)
+        public DialogueLine(string speaker, string text, string? portrait = null)
         {
             Speaker = speaker;
             Text = text;
+            Portrait = portrait;
         }
     }
 }
