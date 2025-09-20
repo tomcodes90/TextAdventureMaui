@@ -11,7 +11,6 @@
             Card1 = card1;
             Card2 = card2;
 
-            // Ensure there's exactly one match
             CommonSymbol = card1.Symbols.Intersect(card2.Symbols).First();
         }
     }
