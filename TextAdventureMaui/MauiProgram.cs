@@ -5,6 +5,8 @@ using Microsoft.Maui.Hosting;
 using Plugin.Maui.Audio;
 using TextAdventureMaui.Views;
 using TextAdventureMaui.ViewModels;
+using TextAdventureMaui.Models.Missions;
+using TextAdventureMaui.Services;
 
 namespace TextAdventureMaui;
 
@@ -29,9 +31,18 @@ public static class MauiProgram
         // Register ViewModels and Pages
         builder.Services.AddSingleton<MainMenuViewModel>();
         builder.Services.AddSingleton<MainMenuPage>();
+        builder.Services.AddSingleton<DialogueService>();
+        // Register MainHall (with default doors + npcs)
+        builder.Services.AddSingleton<MainHall>();
+
+        // Register ViewModel
+        builder.Services.AddTransient<MainHallViewModel>();
+
+        // Register Page
+        builder.Services.AddTransient<MainHallPage>();
 
         builder.Services.AddTransient<BattlePage>();
-        builder.Services.AddTransient<BattleViewModel>();
+     
 
 #if DEBUG
         builder.Logging.AddDebug();

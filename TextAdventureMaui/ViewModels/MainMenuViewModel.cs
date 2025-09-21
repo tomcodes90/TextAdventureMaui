@@ -41,23 +41,19 @@ public class MainMenuViewModel
         }
     }
 
-    private async Task StartTestFightAsync()
-    {
-        var player = new Player("Hero", 100, 2);
-        var enemy = new Enemy("Dishwasher", 80, 2);
-
-        var vm = new BattleViewModel(player, enemy);
-        var page = new BattlePage(vm);                 // uses the ctor above
-
-        // From a ViewModel use Shell.Current
-        await Shell.Current.Navigation.PushAsync(page);
-    }
-
     private async void OnStart()
     {
         _player?.Stop();
-        await StartTestFightAsync();
+        try
+        {
+            await Shell.Current.GoToAsync("///mainhall");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Navigation error: {ex}");
+        }
     }
+
 
     private void OnSettings()
     {
