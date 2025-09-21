@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:TextAdventureMaui.ViewModels"
+             x:Class="TextAdventureMaui.Views.MainHallPage"
+             Title="Main Hall"
+             BackgroundColor="Black">
+
+    <AbsoluteLayout>
+
+        <!-- Background -->
+        <Image Source="mainhall.png"
+               Aspect="AspectFill"
+               AbsoluteLayout.LayoutBounds="0,0,1,1"
+               AbsoluteLayout.LayoutFlags="All" />
+
+        <!-- Hero Knight (sword) -->
+        <Image Source="knight_sword.png"
+               Aspect="AspectFit"
+               AbsoluteLayout.LayoutBounds="0.5,0.9,200,300"
+               AbsoluteLayout.LayoutFlags="PositionProportional" />
+
+        <!-- Porte -->
+        <CollectionView ItemsSource="{Binding Doors}"
+                        AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                        AbsoluteLayout.LayoutFlags="PositionProportional">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="30"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Button Text="{Binding Label}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}, Path=EnterRoomCommand}"
+                            CommandParameter="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- NPCs -->
+        <CollectionView ItemsSource="{Binding Npcs}"
+                        AbsoluteLayout.LayoutBounds="0.5,0.8,-1,-1"
+                        AbsoluteLayout.LayoutFlags="PositionProportional">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="50"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Button Text="{Binding Name}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}, Path=TalkToNpcCommand}"
+                            CommandParameter="{Binding .}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </AbsoluteLayout>
+</ContentPage>
