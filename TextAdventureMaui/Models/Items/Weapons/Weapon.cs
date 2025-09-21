@@ -6,7 +6,7 @@
         public double Damage { get; protected set; } = damage;
 
         // Each weapon defines how it attacks
-        public abstract double PerformAttack(Entity target, Random rng);
+        public abstract double WeaponDamage(Random rng);
     }
 }
 

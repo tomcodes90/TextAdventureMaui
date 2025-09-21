@@ -21,10 +21,10 @@ public partial class MainHallViewModel : ObservableObject
         // inizializza 4 porte
         Doors = new List<Door>
         {
-            new Door(1, "🚪1", locked: false),
-            new Door(2, "🚪2", locked: true),
-            new Door(3, "🚪3", locked: true),
-            new Door(4, "🚪4", locked: true)
+            new Door(1, "Hell's Kitchen", locked: false),
+            new Door(2, "Screaming Tower", locked: true),
+            new Door(3, "Pain Chambers", locked: true),
+            new Door(4, "The Catacombs", locked: true)
         };
 
         // inizializza NPCs

@@ -9,13 +9,12 @@ namespace TextAdventureMaui.Models.Items.Weapons
     public class Hammer(string name, string description)
         : Weapon(name, description, 2)
     {
-        public override double PerformAttack(Entity target, Random rng)
+        public override double WeaponDamage(Random rng)
         {
             double totalDamage = Damage;
-            target.TakeDamage(totalDamage);
-
-            if (rng.NextDouble() < 0.2) // 20% chance
-                Console.WriteLine($"{Name} stuns {target.Name}!");
+            if (!(rng.NextDouble() < 0.3)) return totalDamage; // 30% chance
+            Console.WriteLine($"{Name} strikes critically!");
+            totalDamage += Damage * 0.8;
 
             return totalDamage;
         }

@@ -48,18 +48,6 @@ namespace TextAdventureMaui.Services
                 Console.WriteLine("That room is not available for grinding yet!");
             }
         }
-
-        public void ShowInventory()
-        {
-            Player.Inventory.PrintInventory();
-        }
-
-        public void ShowStats()
-        {
-            Console.WriteLine($"{Player.Name} - HP: {Player.CurrentHp}/{Player.MaxHp}, Attack: {Player.BaseAttack}");
-            if (Player.EquippedWeapon != null)
-                Console.WriteLine($"Equipped: {Player.EquippedWeapon.Name}");
-        }
     }
 }
-}
+

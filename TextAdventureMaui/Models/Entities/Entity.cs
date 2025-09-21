@@ -20,10 +20,8 @@ public abstract class Entity(string? name, int maxHp, int attack)
             CurrentHp = 0;
     }
 
-    public virtual double DealDamage()
+    public double DealDamage()
     {
-        if (EquippedWeapon is not null)
-            return EquippedWeapon.Damage;
-        return BaseAttack;
+       return BaseAttack + EquippedWeapon.PerformAttack();
     }
 }

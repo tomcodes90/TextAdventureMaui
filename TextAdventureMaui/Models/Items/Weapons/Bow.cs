@@ -9,16 +9,13 @@ namespace TextAdventureMaui.Models.Items.Weapons
     public class Bow(string name, string description)
         : Weapon(name, description, 1.5)
     {
-        public override double PerformAttack(Entity target, Random rng)
+        public override double WeaponDamage(Random rng)
         {
             double totalDamage = Damage;
-            if (rng.NextDouble() < 0.25) // 25% crit chance
-            {
-                Console.WriteLine($"{Name} lands a critical hit!");
-                totalDamage *= 2;
-            }
+            if (!(rng.NextDouble() < 0.3)) return totalDamage; // 30% chance
+            Console.WriteLine($"{Name} strikes critically!");
+            totalDamage += Damage * 2;
 
-            target.TakeDamage(totalDamage);
             return totalDamage;
         }
     }
