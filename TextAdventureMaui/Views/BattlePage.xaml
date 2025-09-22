@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
@@ -7,7 +8,7 @@
 
     <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*,*">
 
-        <!-- Enemy (Top Left, 1/4 height, 1/2 width) -->
+        <!-- Enemy (Top Left) -->
         <controls:BattleCharacterView Grid.Row="0" Grid.Column="0"
                                       Image="maxime.png"
                                       CharacterName="{Binding Enemy.Name}"
@@ -17,7 +18,7 @@
                                       HorizontalOptions="Fill"
                                       VerticalOptions="Fill"/>
 
-        <!-- Player (Bottom Right, 1/4 height, 1/2 width) -->
+        <!-- Player (Bottom Right) -->
         <controls:BattleCharacterView Grid.Row="3" Grid.Column="1"
                                       Image="ashita.png"
                                       CharacterName="{Binding Player.Name}"
@@ -27,27 +28,116 @@
                                       HorizontalOptions="Fill"
                                       VerticalOptions="Fill"/>
 
-        <!-- Log / Command Menu (Bottom Left, 1/4 height, 1/2 width) -->
+        <!-- Log + Moves (Bottom Left) -->
         <Border Grid.Row="3" Grid.Column="0"
                 Stroke="{StaticResource Gray500Brush}" StrokeShape="RoundRectangle 0"
-                BackgroundColor="{StaticResource Gray900}" Padding="15">
+                BackgroundColor="{StaticResource Gray900}" Padding="10">
             <Grid>
-                <Label Text="{Binding BattleLog}" FontSize="16"
-                       HorizontalOptions="Center" VerticalOptions="Center"
+                <Label Text="{Binding BattleLog}" FontSize="14"
+                       HorizontalOptions="Center" VerticalOptions="Start"
                        TextColor="{StaticResource TextPrimary}"
                        LineBreakMode="WordWrap"/>
 
-                <HorizontalStackLayout HorizontalOptions="Center"
-                                       VerticalOptions="End" Spacing="15">
-                    <Button Text="Attack" Command="{Binding PlayerAttackCommand}" />
-                    <Button Text="Item" />
-                    <Button Text="Defend" />
-                </HorizontalStackLayout>
+                <!-- Lista abilità -->
+                <CollectionView ItemsSource="{Binding Player.Abilities}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="End"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Vertical" Spacing="2" Padding="5">
+                                <Label Text="{Binding Name}" 
+                                       FontSize="14" 
+                                       TextColor="{StaticResource TextPrimary}" 
+                                       HorizontalOptions="Center"/>
+                                <Label Text="{Binding InputSequenceString}"
+                                       FontSize="12"
+                                       TextColor="{StaticResource TextSecondary}"
+                                       HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </Border>
 
-        <!-- Middle rows (row 1 + 2, both columns) = battle animation area -->
-        <Grid Grid.Row="1" Grid.ColumnSpan="2"/>
-        <Grid Grid.Row="2" Grid.ColumnSpan="2"/>
+        <!-- Input Viewer (Center) -->
+        <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                BackgroundColor="{StaticResource Gray800}"
+                Stroke="{StaticResource ActionPrimary}" StrokeShape="RoundRectangle 10"
+                Padding="15" HorizontalOptions="Center" VerticalOptions="Center">
+            <CollectionView ItemsSource="{Binding CurrentInput}"
+                            ItemsLayout="HorizontalList"
+                            SelectionMode="None"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="5" BackgroundColor="{StaticResource Gray600}" CornerRadius="5">
+                            <Label Text="{Binding .}" 
+                                   FontSize="18"
+                                   TextColor="{StaticResource TextPrimary}"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+
+        <!-- Input Buttons -->
+        <Grid Grid.Row="2" Grid.ColumnSpan="2"
+              HorizontalOptions="Center"
+              VerticalOptions="End"
+              Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Up -->
+            <Button Grid.Row="0" Grid.Column="1"
+                    Text="⬆"
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="Up"/>
+
+            <!-- Left -->
+            <Button Grid.Row="1" Grid.Column="0"
+                    Text="⬅"
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="Left"/>
+
+            <!-- Action -->
+            <Button Grid.Row="1" Grid.Column="1"
+                    Text="⚔"
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="Action"/>
+
+            <!-- Right -->
+            <Button Grid.Row="1" Grid.Column="2"
+                    Text="➡"
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="Right"/>
+
+            <!-- Down -->
+            <Button Grid.Row="2" Grid.Column="1"
+                    Text="⬇"
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="Down"/>
+        </Grid>
+
+        <!-- Confirm / Clear -->
+        <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="End"
+                               Spacing="10"
+                               Margin="0,10">
+            <Button Text="Confirm" Command="{Binding ConfirmInputCommand}" />
+            <Button Text="Clear" Command="{Binding ClearInputCommand}" />
+        </HorizontalStackLayout>
     </Grid>
 </ContentPage>

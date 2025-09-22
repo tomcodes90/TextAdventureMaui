@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextAdventureMaui.Models.Items.Weapons
+﻿namespace TextAdventureMaui.Models.Items.Weapons
 {
-    public class Hammer(string name, string description)
-        : Weapon(name, description, 2)
+    public class Hammer() : Weapon("Hammer", "Un martello pesante e devastante", damage: 4, critChance: 0.1,
+        critMultiplier: 2.5)
     {
-        public override double WeaponDamage(Random rng)
+        public override double WeaponDamage()
         {
-            double totalDamage = Damage;
-            if (!(rng.NextDouble() < 0.3)) return totalDamage; // 30% chance
-            Console.WriteLine($"{Name} strikes critically!");
-            totalDamage += Damage * 0.8;
-
-            return totalDamage;
+            return RollDamage();
         }
     }
-
 }

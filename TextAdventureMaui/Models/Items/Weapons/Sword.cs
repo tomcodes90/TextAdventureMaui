@@ -1,17 +1,15 @@
 ﻿namespace TextAdventureMaui.Models.Items.Weapons
 {
-    public class Sword(string name, string description)
-        : Weapon(name, description, 1)
+    public class Sword : Weapon
     {
-        public override double WeaponDamage(Random rng)
+        public Sword() 
+            : base("Sword", "Una spada bilanciata", 3, 0.2)
         {
-            double totalDamage = Damage;
-            if (!(rng.NextDouble() < 0.3)) return totalDamage; // 30% chance
-            Console.WriteLine($"{Name} strikes twice!");
-            totalDamage += Damage;
+        }
 
-            return totalDamage;
+        public override double WeaponDamage()
+        {
+            return RollDamage();
         }
     }
-
 }

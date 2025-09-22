@@ -14,4 +14,6 @@ public class Ability
         Damage = damage;
         Description = description;
     }
+    
+    public string InputSequenceString => string.Join(" → ", InputSequence);
 }

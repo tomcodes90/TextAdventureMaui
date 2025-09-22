@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextAdventureMaui.Models.Items.Weapons
+﻿namespace TextAdventureMaui.Models.Items.Weapons
 {
-    public class Bow(string name, string description)
-        : Weapon(name, description, 1.5)
+    public class Bow : Weapon
     {
-        public override double WeaponDamage(Random rng)
+        public Bow()
+            : base("Bow", "Un arco leggero ma letale a distanza", damage: 2, critChance: 0.25)
         {
-            double totalDamage = Damage;
-            if (!(rng.NextDouble() < 0.3)) return totalDamage; // 30% chance
-            Console.WriteLine($"{Name} strikes critically!");
-            totalDamage += Damage * 2;
+        }
 
-            return totalDamage;
+        public override double WeaponDamage()
+        {
+            return RollDamage();
         }
     }
-
 }

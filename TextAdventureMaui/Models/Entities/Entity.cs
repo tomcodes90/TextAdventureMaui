@@ -9,7 +9,7 @@ public abstract class Entity(string? name, int maxHp, int attack)
     public double CurrentHp { get; set; } = maxHp;
     public double BaseAttack { get; set; } = attack;
 
-    public Weapon? EquippedWeapon { get; set; }
+    public Weapon EquippedWeapon { get; set; }
 
     public bool IsAlive() => CurrentHp > 0;
 
@@ -22,6 +22,6 @@ public abstract class Entity(string? name, int maxHp, int attack)
 
     public double DealDamage()
     {
-       return BaseAttack + EquippedWeapon.PerformAttack();
+       return BaseAttack + EquippedWeapon.WeaponDamage();
     }
 }

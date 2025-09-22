@@ -1,7 +1,7 @@
-﻿using TextAdventureMaui.Models;
-using TextAdventureMaui.Models.Dialogues;
+﻿using TextAdventureMaui.Models.Dialogues;
 using TextAdventureMaui.Models.Entities;
-using TextAdventureMaui.Models.Missions;
+
+namespace TextAdventureMaui.Models.Missions;
 
 public class BattleMission : Mission
 {
@@ -19,22 +19,5 @@ public class BattleMission : Mission
     {
         Enemy = enemy;
     }
-
-    public override void Start(Player player)
-    {
-        Console.WriteLine($"Mission: {Name}");
-
-        PlayDialogue(IntroDialogue);
-
-        Console.WriteLine($"Enemy {Enemy.Name} appears!");
-        // TODO: Hook into BattleService here
-
-        // Simulate win for now
-        IsCompleted = true;
-
-        if (IsCompleted)
-        {
-            PlayDialogue(OutroDialogue);
-        }
-    }
+    
 }
