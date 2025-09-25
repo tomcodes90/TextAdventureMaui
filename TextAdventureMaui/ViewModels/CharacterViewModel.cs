@@ -1,23 +1,17 @@
-using System;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace TextAdventureMaui.ViewModels
+namespace TextAdventureMaui.ViewModels;
+
+public class CharacterViewModel
 {
-    public partial class CharacterViewModel : ObservableObject
+    public string Name { get; }
+    public string Sprite { get; }
+    public IRelayCommand TapCommand { get; }
+
+    public CharacterViewModel(string name, string sprite, Func<Task> onTap)
     {
-        [ObservableProperty] private string name;
-        [ObservableProperty] private string sprite;
-
-        // Bind to this in CharacterView.xaml
-        public IAsyncRelayCommand TapCommand { get; }
-
-        public CharacterViewModel(string name, string sprite, Func<Task> onTapAsync)
-        {
-            this.name = name;
-            this.sprite = sprite;
-            TapCommand = new AsyncRelayCommand(onTapAsync);
-        }
+        Name = name;
+        Sprite = sprite;
+        TapCommand = new AsyncRelayCommand(onTap);
     }
 }

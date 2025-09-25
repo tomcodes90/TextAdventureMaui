@@ -26,7 +26,7 @@ public partial class BattleViewModel : ObservableObject
     private int _sequenceIndex = 0;
     private double _enemyAttackDamage;
 
-    public event EventHandler<ChallengeReward>? BattleEnded;
+    public event EventHandler<ChallengeResult>? BattleEnded;
 
     // 🔹 proprietà per binding in XAML
     public double EnemyHpPercent => Enemy.CurrentHp / (double)Enemy.MaxHp;

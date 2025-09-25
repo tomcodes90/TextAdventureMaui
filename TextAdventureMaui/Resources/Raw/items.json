@@ -1,0 +1,30 @@
+﻿[
+  {
+    "name": "chef_hat",
+    "description": "A smelly hat from the Devil Chef.",
+    "type": "KeyItem",
+    "unlocks": "KitchenDoor"
+  },
+  {
+    "name": "burnt_spoon",
+    "description": "A spoon charred by hellfire.",
+    "type": "Generic",
+    "isStackable": false
+  },
+  {
+    "name": "ancient_scroll",
+    "description": "Contains forgotten wisdom.",
+    "type": "Trinket",
+    "effectType": "BuffDamage",
+    "effectAmount": 2,
+    "effectDescription": "Grants +2 attack power while in inventory."
+  },
+  {
+    "name": "mystic_charm",
+    "description": "A charm radiating vitality.",
+    "type": "Trinket",
+    "effectType": "BuffHp",
+    "effectAmount": 5,
+    "effectDescription": "Grants +5 HP while in inventory."
+  }
+]

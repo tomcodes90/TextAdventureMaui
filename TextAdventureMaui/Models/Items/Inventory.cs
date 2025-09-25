@@ -1,66 +1,78 @@
-﻿namespace TextAdventureMaui.Models.Items
+﻿using TextAdventureMaui.Models.Items;
+using TextAdventureMaui.Models.ItemEffects;
+using TextAdventureMaui.Models.Items.KeyItems;
+
+namespace TextAdventureMaui.Models;
+
+public class Inventory
 {
-    // Encapsulates inventory logic
-    public class Inventory
+    private readonly Dictionary<Item, int> _items = new();
+    private readonly Player _owner; // 👈 wichtig: wem gehört das Inventar?
+
+    public Inventory(Player owner)
     {
-        private readonly Dictionary<Item, int> items = [];
+        _owner = owner;
+    }
+    public Inventory()
+    {
+        
+    }
 
-        public void AddItem(Item item, int amount = 1)
+    public IReadOnlyDictionary<Item, int> Items => _items;
+
+    public void AddItem(Item item, int quantity = 1)
+    {
+        if (item.IsStackable && _items.ContainsKey(item))
         {
-            if (item.IsStackable)
-            {
-                if (items.ContainsKey(item))
-                    items[item] += amount;
-                else
-                    items[item] = amount;
-            }
-            else
-            {
-                // Each unique non-stackable item gets its own entry
-                for (int i = 0; i < amount; i++)
-                    items[item] = 1; // Key is already unique since it's a distinct object
-            }
+            _items[item] += quantity;
+        }
+        else
+        {
+            _items[item] = quantity;
         }
 
-        public bool RemoveItem(Item item, int amount = 1)
+        // 🔹 Wenn es ein Trinket ist → Effekt sofort anwenden
+        if (item is Trinket trinket && trinket.Effect != null)
         {
-            if (items.TryGetValue(item, out var currentAmount))
-            {
-                if (item.IsStackable)
-                {
-                    if (currentAmount >= amount)
-                    {
-                        items[item] -= amount;
-                        if (items[item] == 0)
-                            items.Remove(item);
-                        return true;
-                    }
-                }
-                else
-                {
-                    // Just remove the specific instance
-                    return items.Remove(item);
-                }
-            }
-            return false;
-        }
-
-        public int GetQuantity(Item item) =>
-            items.TryGetValue(item, out var qty) ? qty : 0;
-
-        public IReadOnlyDictionary<Item, int> GetAllItems() => items;
-
-        public void PrintInventory()
-        {
-            if (items.Count == 0)
-            {
-                Console.WriteLine("Your inventory is empty.");
-                return;
-            }
-
-            Console.WriteLine("Inventory:");
-            foreach (var kvp in items)
-                Console.WriteLine($"- {kvp.Key.Name} x{kvp.Value}");
+            trinket.Effect.Apply(_owner);
+            Console.WriteLine($"[Inventory] Effect applied: {trinket.Effect.Description}");
         }
     }
+
+    public void RemoveItem(Item item, int quantity = 1)
+    {
+        if (!_items.ContainsKey(item))
+            return;
+
+        _items[item] -= quantity;
+        if (_items[item] <= 0)
+            _items.Remove(item);
+
+        // 🔹 Falls es ein Trinket war → Effekt rückgängig machen
+        if (item is Trinket trinket && trinket.Effect != null)
+        {
+            RemoveEffect(trinket.Effect);
+            Console.WriteLine($"[Inventory] Effect removed: {trinket.Effect.Description}");
+        }
+    }
+
+    private void RemoveEffect(ItemEffect effect)
+    {
+        // 🔹 Da deine Effekte direkt Stats erhöhen, müssen wir einen Gegen-Effekt anwenden
+        switch (effect)
+        {
+            case HpItemEffect hp:
+                _owner.MaxHp -= hp.Amount;
+                if (_owner.CurrentHp > _owner.MaxHp)
+                    _owner.CurrentHp = _owner.MaxHp;
+                break;
+
+            case DamageItemEffect dmg:
+                _owner.BaseAttack -= dmg.Amount;
+                break;
+        }
+    }
+
+    public bool HasItem(string itemName) =>
+        _items.Keys.Any(i => i.Name.Equals(itemName, StringComparison.OrdinalIgnoreCase));
 }

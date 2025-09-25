@@ -1,41 +1,61 @@
 using System.Text.Json;
-using TextAdventureMaui.Models.Missions;
+using TextAdventureMaui.Models;
 
-namespace TextAdventureMaui.Services;
+namespace TextAdventureMaui.Factories;
 
 public class RewardFactory
 {
-    private readonly Dictionary<int, RewardData> _rewardData;
+    private readonly Dictionary<string, ChallengeResult> _rewards = new();
 
     public RewardFactory()
     {
-        // Carichiamo il file dal pacchetto
-        using var stream = FileSystem.OpenAppPackageFileAsync("Data/rewards.json").Result;
-        using var reader = new StreamReader(stream);
-        var json = reader.ReadToEnd();
-
-        var rewards = JsonSerializer.Deserialize<List<RewardData>>(json)!;
-        _rewardData = rewards.ToDictionary(r => r.EnemyId);
+        LoadRewardsAsync().Wait();
     }
 
-    public ChallengeReward CreateReward(int enemyId, bool playerWon)
+    private async Task LoadRewardsAsync()
     {
-        if (!_rewardData.TryGetValue(enemyId, out var data))
-            throw new ArgumentException($"Reward for enemy id {enemyId} not found.");
+        try
+        {
+            using var stream = await FileSystem.OpenAppPackageFileAsync("rewards.json");
+            using var reader = new StreamReader(stream);
+            var json = await reader.ReadToEndAsync();
 
-        return new ChallengeReward(
-            playerWon,
-            data.CanChooseUpgrade && playerWon,
-            data.NewAbilityUnlockedId,
-            data.Loot
-        );
+            var rewards = JsonSerializer.Deserialize<List<ChallengeResult>>(json,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            if (rewards != null)
+            {
+                foreach (var reward in rewards)
+                {
+                    if (!string.IsNullOrWhiteSpace(reward.EnemyName))
+                        _rewards[reward.EnemyName] = reward;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"⚠️ Failed to load rewards.json: {ex.Message}");
+        }
     }
 
-    private class RewardData
+    /// <summary>
+    /// Creates a ChallengeResult for a given enemy and outcome.
+    /// </summary>
+    public ChallengeResult CreateReward(string enemyName, bool success)
     {
-        public int EnemyId { get; set; }
-        public bool CanChooseUpgrade { get; set; }
-        public int? NewAbilityUnlockedId { get; set; }
-        public List<string> Loot { get; set; } = new();
+        if (_rewards.TryGetValue(enemyName, out var reward))
+        {
+            return new ChallengeResult(
+                success,
+                reward.EarnedItems,
+                reward.Bonus,
+                reward.UnlockedAbilityId
+            )
+            {
+                EnemyName = enemyName
+            };
+        }
+
+        throw new KeyNotFoundException($"No reward defined for enemy '{enemyName}' in rewards.json.");
     }
 }

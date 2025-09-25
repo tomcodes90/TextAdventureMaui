@@ -1,12 +1,50 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TextAdventureMaui.ViewModels"
              x:Class="TextAdventureMaui.Views.PuzzlePage"
-             Title="PuzzlePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Name="PageRoot">
+
+    <ContentPage.BindingContext>
+        <vm:PuzzleViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <!-- Background with clues -->
+        <Image Source="puzzle_bg.png"
+               Aspect="AspectFill"
+               Opacity="0.5" />
+
+        <!-- Quiz content -->
+        <VerticalStackLayout Padding="20" Spacing="20" VerticalOptions="Center">
+
+            <!-- Question -->
+            <Label Text="{Binding CurrentQuestion.Question}"
+                   FontSize="22"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   FontAttributes="Bold" />
+
+            <!-- Answer buttons -->
+            <CollectionView ItemsSource="{Binding CurrentQuestion.Answers}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Button Text="{Binding .}"
+                                Command="{Binding BindingContext.SelectAnswerCommand, Source={x:Reference Name=PageRoot}}"
+                                CommandParameter="{Binding Source={RelativeSource AncestorType={x:Type Button}}, Path=TabIndex}"
+                                Margin="5"
+                                BackgroundColor="DarkSlateBlue"
+                                TextColor="White" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Feedback -->
+            <Label Text="{Binding FeedbackMessage}"
+                   FontSize="18"
+                   HorizontalOptions="Center"
+                   TextColor="Gold"
+                   FontAttributes="Italic"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

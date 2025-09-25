@@ -13,9 +13,11 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("mainhall", typeof(MainHallPage));
         Routing.RegisterRoute("battle", typeof(BattlePage));
 
+
         // Secondary pages
         Routing.RegisterRoute(nameof(RoomPage), typeof(RoomPage));
         Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+        Routing.RegisterRoute(nameof(DobblePage), typeof(DobblePage));
     }
 }
 

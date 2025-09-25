@@ -1,13 +1,13 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using TextAdventureMaui.Models.Entities;
 
-namespace TextAdventureMaui.Factories;
+namespace TextAdventureMaui.Services;
 
-public class EnemyFactory
+public class EnemyProvider : IEnemyProvider
 {
-    private readonly List<Enemy> _enemies = new();
+    private readonly Dictionary<string, Enemy> _enemies = new();
 
-    public EnemyFactory()
+    public EnemyProvider()
     {
         LoadEnemiesAsync().Wait();
     }
@@ -24,7 +24,13 @@ public class EnemyFactory
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (enemies != null)
-                _enemies.AddRange(enemies);
+            {
+                foreach (var e in enemies)
+                {
+                    // 👇 use Name as key instead of Id
+                    _enemies[e.Name] = e;
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -32,15 +38,13 @@ public class EnemyFactory
         }
     }
 
-    public Enemy CreateEnemyByName(string name)
+    public Enemy GetEnemyByName(string name)
     {
-        var enemy = _enemies.FirstOrDefault(e => e.Name!.Equals(name, StringComparison.OrdinalIgnoreCase));
-        if (enemy == null)
-            throw new Exception($"Enemy with name '{name}' not found in enemies.json");
+        if (_enemies.TryGetValue(name, out var enemy))
+            return enemy;
 
-        // Create a fresh instance so you don’t mutate the prototype
-        return new Enemy(enemy.Name!, enemy.MaxHp, (int)enemy.BaseAttack);
+        throw new KeyNotFoundException($"Enemy with name '{name}' not found in enemies.json.");
     }
 
-    public List<Enemy> GetAllEnemies() => _enemies;
+    public List<Enemy> GetAllEnemies() => _enemies.Values.ToList();
 }

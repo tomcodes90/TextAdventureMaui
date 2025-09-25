@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
              xmlns:viewmodels="clr-namespace:TextAdventureMaui.ViewModels"
+             xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
              x:Class="TextAdventureMaui.Views.MainHallPage"
-             Title="Main Hall">
+             BackgroundColor="Black">
 
     <Grid RowDefinitions="*,Auto">
 
         <!-- Background -->
         <Image Source="mainhall.png" Aspect="AspectFill" Grid.RowSpan="2"/>
-        <BoxView Color="#66000000" Grid.RowSpan="2"/>
+        <BoxView Color="#33000000" Grid.RowSpan="2"/>
 
-        <!-- Dark overlay -->
+        <!-- Overlay (darken) -->
         <BoxView x:Name="OverlayView"
                  Grid.RowSpan="2"
                  Color="#AA000000"
@@ -23,7 +23,7 @@
             </BoxView.GestureRecognizers>
         </BoxView>
 
-        <!-- Doors in top row -->
+        <!-- Doors at top -->
         <CollectionView Grid.Row="0"
                         ItemsSource="{Binding Doors}"
                         Margin="30"
@@ -31,36 +31,38 @@
                         HorizontalOptions="Center"
                         IsEnabled="{Binding ShowOverlay, Converter={StaticResource InverseBoolConverter}}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="20"/>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="40"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Button Text="{Binding Label}"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}, Path=EnterRoomCommand}"
-                            CommandParameter="{Binding .}"
-                            BackgroundColor="#222831"
-                            TextColor="White"
-                            FontSize="18"
-                            CornerRadius="12"
-                            Padding="15,8"
-                            WidthRequest="180"/>
+                    <Image Source="{Binding Image}"
+                           HeightRequest="180"
+                           WidthRequest="120">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}, Path=EnterRoomCommand}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-
-
         <!-- Bottom row: Player + NPCs -->
-        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" VerticalOptions="End" Margin="20">
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" VerticalOptions="End" Margin="20,0,20,10">
 
-            <!-- Player -->
+            <!-- Player (left) with panel above -->
             <AbsoluteLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End">
                 <!-- Player sprite -->
-                <controls:CharacterView BindingContext="{Binding PlayerCharacter}"
-                                        AbsoluteLayout.LayoutBounds="0.5,1,AutoSize,AutoSize"
-                                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                <Image Source="{Binding PlayerCharacter.Sprite}"
+                       WidthRequest="240" HeightRequest="320"
+                       AbsoluteLayout.LayoutBounds="0.5,1,AutoSize,AutoSize"
+                       AbsoluteLayout.LayoutFlags="PositionProportional">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding TogglePlayerPanelCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
 
-                <!-- Player stats panel -->
+                <!-- Player panel -->
                 <ContentView x:Name="PlayerPanelControl"
                              AbsoluteLayout.LayoutBounds="0.5,-0.25,AutoSize,AutoSize"
                              AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -71,42 +73,33 @@
                 </ContentView>
             </AbsoluteLayout>
 
-            <!-- Maid -->
-            <AbsoluteLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End">
-                <!-- Maid sprite -->
-                <controls:CharacterView BindingContext="{Binding NpcCharacters[0]}"
-                                        AbsoluteLayout.LayoutBounds="0.5,1,AutoSize,AutoSize"
-                                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
+            <!-- Maidy (center) -->
+            <Image Grid.Column="1"
+                   Source="{Binding NpcCharacters[0].Sprite}"
+                   WidthRequest="240" HeightRequest="320"
+                   HorizontalOptions="Center" VerticalOptions="End">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NpcCharacters[0].TapCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
 
-                <!-- Maid dialogue panel -->
-                <ContentView x:Name="MaidyDialoguePanel"
-                             AbsoluteLayout.LayoutBounds="0.5,-0.25,AutoSize,AutoSize"
-                             AbsoluteLayout.LayoutFlags="PositionProportional"
-                             IsVisible="{Binding ShowMaidyDialogue, Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}}">
-                    <ContentView.Content>
-                        <controls:DialoguePanel BindingContext="{Binding MaidyDialogueVm}" />
-                    </ContentView.Content>
-                </ContentView>
-            </AbsoluteLayout>
-
-            <!-- Chex -->
-            <AbsoluteLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="End">
-                <!-- Chex sprite -->
-                <controls:CharacterView BindingContext="{Binding NpcCharacters[1]}"
-                                        AbsoluteLayout.LayoutBounds="0.5,1,AutoSize,AutoSize"
-                                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
-
-                <!-- Chex dialogue panel -->
-                <ContentView x:Name="ChexDialoguePanel"
-                             AbsoluteLayout.LayoutBounds="0.5,-0.25,AutoSize,AutoSize"
-                             AbsoluteLayout.LayoutFlags="PositionProportional"
-                             IsVisible="{Binding ShowChexDialogue, Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}}">
-                    <ContentView.Content>
-                        <controls:DialoguePanel BindingContext="{Binding ChexDialogueVm}" />
-                    </ContentView.Content>
-                </ContentView>
-            </AbsoluteLayout>
-
+            <!-- Chex (right) -->
+            <Image Grid.Column="2"
+                   Source="{Binding NpcCharacters[1].Sprite}"
+                   WidthRequest="240" HeightRequest="320"
+                   HorizontalOptions="Center" VerticalOptions="End">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NpcCharacters[1].TapCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
+
+        <!-- Conversation panel (branching dialogues) -->
+        <controls:ConversationPanel BindingContext="{Binding ConversationVm}"
+                                    IsVisible="{Binding ConversationVm.ShowConversation}"
+                                    Grid.RowSpan="2"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Start"
+                                    Margin="0,80,0,0"/>
     </Grid>
 </ContentPage>

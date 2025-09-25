@@ -12,7 +12,7 @@ public class BattleService
 
     public bool IsPlayerTurn { get; private set; } = true;
 
-    public BattleService(Player player, Enemy enemy)
+    public BattleService(Player? player, Enemy enemy)
     {
         _player = player;
         _enemy = enemy;
@@ -58,14 +58,5 @@ public class BattleService
     public bool IsBattleOver()
     {
         return _player.CurrentHp <= 0 || _enemy.CurrentHp <= 0;
-    }
-
-    
-    public BattleResult GetResult()
-    {
-        if (_player.CurrentHp <= 0)
-            return new BattleResult(false, 0);
-
-        return new BattleResult(true, 10, new List<string> { "Potion" });
     }
 }

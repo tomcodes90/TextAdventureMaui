@@ -6,11 +6,11 @@ public class DialogueNode
     public DialogueLine Line { get; }
     public List<DialogueChoice> Choices { get; }
 
-    public DialogueNode(int id, DialogueLine line, List<DialogueChoice>? choices = null)
+    public DialogueNode(int id, DialogueLine line)
     {
         Id = id;
         Line = line;
-        Choices = choices ?? new List<DialogueChoice>();
+        Choices = new List<DialogueChoice>();
     }
 
     public bool HasChoices => Choices.Any();

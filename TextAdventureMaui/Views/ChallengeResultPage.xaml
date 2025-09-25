@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TextAdventureMaui.ViewModels"
+             x:Class="TextAdventureMaui.Views.ChallengeResultPage"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+
+    <VerticalStackLayout Spacing="20" Padding="30"
+                         VerticalOptions="Center" HorizontalOptions="Center">
+
+        <!-- Success or failure -->
+        <Label Text="{Binding ResultMessage}"
+               FontSize="32"
+               HorizontalOptions="Center"
+               TextColor="Gold"
+               FontAttributes="Bold" />
+
+        <!-- Earned items -->
+        <Label Text="Items Earned:" FontSize="20" FontAttributes="Bold" />
+        <CollectionView ItemsSource="{Binding EarnedItems}"
+                        HeightRequest="100">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" BackgroundColor="LightGray" CornerRadius="10">
+                        <Label Text="{Binding .}" FontSize="18" HorizontalOptions="Center"/>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Bonus -->
+        <Label Text="{Binding Bonus, StringFormat='Bonus: {0}'}"
+               FontSize="20"
+               IsVisible="{Binding Bonus, Converter={StaticResource StringNotEmptyConverter}}" />
+
+        <!-- Ability -->
+        <Label Text="{Binding AbilityName, StringFormat='Unlocked Ability: {0}'}"
+               FontSize="20"
+               IsVisible="{Binding AbilityName, Converter={StaticResource StringNotEmptyConverter}}" />
+
+        <!-- Continue button -->
+        <Button Text="Continue"
+                Command="{Binding ContinueCommand}"
+                HorizontalOptions="Center"
+                FontSize="20"
+                BackgroundColor="DarkBlue"
+                TextColor="White"/>
+    </VerticalStackLayout>
+</ContentPage>

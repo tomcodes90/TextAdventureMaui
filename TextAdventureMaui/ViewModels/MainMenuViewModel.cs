@@ -168,7 +168,16 @@ public class MainMenuViewModel : INotifyPropertyChanged
         _playerService.SetPlayer(Player);
 
         // Navigate to Main Hall
-        await Shell.Current.GoToAsync("/mainhall");
+        try
+        {
+            await Shell.Current.GoToAsync(nameof(DobblePage));
+        
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Navigation error: {ex}");
+            Console.WriteLine($"⚠️ NAV ERROR: {ex}");
+        }
     }
 
     private bool ValidateInputs()

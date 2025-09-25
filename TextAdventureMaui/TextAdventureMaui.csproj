@@ -76,10 +76,10 @@
       <MauiXaml Update="Views\BattlePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
-      <MauiXaml Update="Views\DobblePage.xaml">
+      <MauiXaml Update="Views\Controls\ConversationPanel.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
-      <MauiXaml Update="Views\InventoryPage.xaml">
+      <MauiXaml Update="Views\DobblePage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
       <MauiXaml Update="Views\MainHallPage.xaml">
@@ -100,6 +100,68 @@
       <MauiXaml Update="Views\SettingsPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>
+      <None Remove="Resources\Images\dobble\dobble_1.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_1.png" />
+      <None Remove="Resources\Images\dobble\dobble_2.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_2.png" />
+      <None Remove="Resources\Images\dobble\dobble_3.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_3.png" />
+      <None Remove="Resources\Images\dobble\dobble_4.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_4.png" />
+      <None Remove="Resources\Images\dobble\dobble_5.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_5.png" />
+      <None Remove="Resources\Images\dobble\dobble_6.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_6.png" />
+      <None Remove="Resources\Images\dobble\dobble_7.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_7.png" />
+      <None Remove="Resources\Images\dobble\dobble_8.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_8.png" />
+      <None Remove="Resources\Images\dobble\dobble_9.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_9.png" />
+      <None Remove="Resources\Images\dobble\dobble_10.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_10.png" />
+      <None Remove="Resources\Images\dobble\dobble_11.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_11.png" />
+      <None Remove="Resources\Images\dobble\dobble_12.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_12.png" />
+      <None Remove="Resources\Images\dobble\dobble_13.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_13.png" />
+      <None Remove="Resources\Images\dobble\dobble_14.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_14.png" />
+      <None Remove="Resources\Images\dobble\dobble_15.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_15.png" />
+      <None Remove="Resources\Images\dobble\dobble_16.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_16.png" />
+      <None Remove="Resources\Images\dobble\dobble_17.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_17.png" />
+      <None Remove="Resources\Images\dobble\dobble_18.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_18.png" />
+      <None Remove="Resources\Images\dobble\dobble_19.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_19.png" />
+      <None Remove="Resources\Images\dobble\dobble_20.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_20.png" />
+      <None Remove="Resources\Images\dobble\dobble_21.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_21.png" />
+      <None Remove="Resources\Images\dobble\dobble_22.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_22.png" />
+      <None Remove="Resources\Images\dobble\dobble_23.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_23.png" />
+      <None Remove="Resources\Images\dobble\dobble_24.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_24.png" />
+      <None Remove="Resources\Images\dobble\dobble_25.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_25.png" />
+      <None Remove="Resources\Images\dobble\dobble_26.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_26.png" />
+      <None Remove="Resources\Images\dobble\dobble_27.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_27.png" />
+      <None Remove="Resources\Images\dobble\dobble_28.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_28.png" />
+      <None Remove="Resources\Images\dobble\dobble_29.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_29.png" />
+      <None Remove="Resources\Images\dobble\dobble_30.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_30.png" />
+      <None Remove="Resources\Images\dobble\dobble_31.png" />
+      <MauiImage Include="Resources\Images\dobble\dobble_31.png" />
     </ItemGroup>
 
 </Project>

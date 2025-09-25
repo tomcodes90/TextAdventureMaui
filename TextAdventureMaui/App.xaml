@@ -20,6 +20,8 @@
             <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
             <converters:EqualsConverter x:Key="EqualsConverter"/>
             <converters:EqualsToBoolConverter x:Key="EqualsToBoolConverter"/>
+            <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
+            <converters:DobbleImageConverter x:Key="DobbleImageConverter" />
             <ControlTemplate x:Key="PlayerPanelTemplate">
                 <controls:PlayerPanel />
             </ControlTemplate>
