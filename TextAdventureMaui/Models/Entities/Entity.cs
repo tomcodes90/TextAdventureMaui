@@ -13,7 +13,7 @@ public abstract class Entity(string? name, int maxHp, int attack)
 
     public bool IsAlive() => CurrentHp > 0;
 
-    public virtual void TakeDamage(double damage)
+    public void TakeDamage(double damage)
     {
         CurrentHp -= damage;
         if (CurrentHp < 0)

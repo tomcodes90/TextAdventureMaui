@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "Name": "Goblin",
+    "MaxHp": 6,
+    "Attack": 2,
+    "Weapon": "Hammer"
+  },
+  {
+    "Id": 2,
+    "Name": "Orc",
+    "MaxHp": 12,
+    "Attack": 4,
+    "Weapon": "Sword"
+  },
+  {
+    "Id": 3,
+    "Name": "Dark Knight",
+    "MaxHp": 20,
+    "Attack": 6,
+    "Weapon": "Bow"
+  }
+]

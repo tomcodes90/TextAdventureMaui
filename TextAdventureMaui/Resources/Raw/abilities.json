@@ -1,0 +1,58 @@
+[
+  {
+    "Id": 1,
+    "Name": "Slash",
+    "Description": "A quick strike with the sword.",
+    "InputSequence": ["Left", "Right", "Action"],
+    "Damage": 3
+  },
+  {
+    "Id": 2,
+    "Name": "Whirlwind",
+    "Description": "A devastating spinning attack.",
+    "InputSequence": ["Up", "Down", "Up", "Action"],
+    "Damage": 5
+  },
+  {
+    "Id": 3,
+    "Name": "Piercing Arrow",
+    "Description": "A swift and precise arrow shot.",
+    "InputSequence": ["Right", "Right", "Action"],
+    "Damage": 4
+  },
+  {
+    "Id": 4,
+    "Name": "Dark Slash",
+    "Description": "A sinister strike infused with malevolent energy.",
+    "InputSequence": ["Left", "Left", "Down", "Action"],
+    "Damage": 7
+  },
+  {
+    "Id": 5,
+    "Name": "Grandma’s Wrath",
+    "Description": "Unleash the culinary rage of an angry grandma: flaming ladles rain from above!",
+    "InputSequence": ["Up", "Up", "Left", "Right", "Action"],
+    "Damage": 8
+  },
+  {
+    "Id": 6,
+    "Name": "Dramatic Hair Flip",
+    "Description": "With a theatrical toss of your hair, you blind enemies with sheer vanity.",
+    "InputSequence": ["Down", "Down", "Left", "Action"],
+    "Damage": 6
+  },
+  {
+    "Id": 7,
+    "Name": "Existential Uppercut",
+    "Description": "A punch that strikes both the body… and the enemy’s sense of purpose.",
+    "InputSequence": ["Left", "Right", "Left", "Up", "Down", "Action"],
+    "Damage": 10
+  },
+  {
+    "Id": 8,
+    "Name": "Apocalypse Burrito",
+    "Description": "You wrap destiny itself in a cosmic tortilla. Whoever takes a bite… implodes.",
+    "InputSequence": ["Up", "Down", "Up", "Left", "Right", "Left", "Right", "Action"],
+    "Damage": 15
+  }
+]

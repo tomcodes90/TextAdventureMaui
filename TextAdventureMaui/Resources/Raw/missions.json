@@ -1,0 +1,38 @@
+[
+  {
+    "Id": 101,
+    "Type": "Battle",
+    "Name": "Goblin Trouble",
+    "Description": "Sconfiggi il goblin nella sala.",
+    "BackgroundImage": "mainhall.png",
+    "MusicTrack": "battle_theme.mp3",
+    "EnemyId": 1,
+    "IntroDialogue": [
+      { "Speaker": "Nonna", "Text": "Attento! Un goblin ti blocca la strada." },
+      { "Speaker": "Hero", "Text": "Ci penso io!" }
+    ],
+    "OutroDialogue": [
+      { "Speaker": "Hero", "Text": "Ce l’ho fatta!" },
+      { "Speaker": "Nonna", "Text": "Bravo ragazzo." }
+    ]
+  },
+  {
+    "Id": 102,
+    "Type": "Puzzle",
+    "Name": "Enigma del Mercante",
+    "Description": "Rispondi alla domanda del mercante.",
+    "BackgroundImage": "market.png",
+    "MusicTrack": "village_theme.mp3",
+    "Question": "Qual è l’oggetto più prezioso?",
+    "Answer": "Amicizia"
+  },
+  {
+    "Id": 103,
+    "Type": "Dobble",
+    "Name": "Simboli Magici",
+    "Description": "Trova il simbolo in comune tra le carte.",
+    "BackgroundImage": "library.png",
+    "MusicTrack": "mystery_theme.mp3",
+    "CardCount": 12
+  }
+]

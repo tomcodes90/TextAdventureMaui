@@ -10,7 +10,7 @@ public class BattleService
     private readonly Enemy _enemy;
     private readonly Random _rng = new();
 
-    private List<string> _currentEnemySequence = new();
+    public bool IsPlayerTurn { get; private set; } = true;
 
     public BattleService(Player player, Enemy enemy)
     {
@@ -20,53 +20,52 @@ public class BattleService
 
     public string PlayerTurn(List<string> inputSequence)
     {
+        if (!IsPlayerTurn) return "Non è il turno del player!";
+
         var ability = _player.MatchAbility(inputSequence);
 
         if (ability != null)
         {
             _enemy.TakeDamage(ability.Damage);
+            IsPlayerTurn = false; // passa al nemico
             return $"{_player.Name} usa {ability.Name} e infligge {ability.Damage} danni!";
         }
-
-        _enemy.TakeDamage(_player.BaseAttack);
-        return $"{_player.Name} sbaglia combo! Attacco base infligge {_player.BaseAttack} danni.";
+        else
+        {
+            _enemy.TakeDamage(_player.BaseAttack);
+            IsPlayerTurn = false; // passa al nemico
+            return $"{_player.Name} sbaglia combo! Attacco base infligge {_player.BaseAttack} danni.";
+        }
     }
 
     public (string Message, List<string> Sequence, double Damage) EnemyTurn()
     {
+        if (IsPlayerTurn) return ("Non è il turno del nemico!", new List<string>(), 0);
+
         var directions = new[] { "Up", "Down", "Left", "Right" };
         int length = _rng.Next(2, 4);
 
-        _currentEnemySequence = Enumerable.Range(0, length)
+        var sequence = Enumerable.Range(0, length)
             .Select(_ => directions[_rng.Next(directions.Length)])
             .ToList();
 
         double damage = _enemy.DealDamage();
 
-        return ($"{_enemy.Name} attacca! Riproduci la sequenza per schivare.", _currentEnemySequence, damage);
+        IsPlayerTurn = true; // torna al player
+        return ($"{_enemy.Name} attacca! Premi la sequenza per schivare.", sequence, damage);
     }
 
-    public string ResolveDefense(List<string> playerInput, double damage)
+    public bool IsBattleOver()
     {
-        if (playerInput.SequenceEqual(_currentEnemySequence))
-        {
-            return $"{_player.Name} schiva con successo!";
-        }
-
-        _player.TakeDamage(damage);
-        return $"{_player.Name} fallisce la difesa e subisce {damage} danni!";
+        return _player.CurrentHp <= 0 || _enemy.CurrentHp <= 0;
     }
 
-    public bool IsBattleOver() => _player.CurrentHp <= 0 || _enemy.CurrentHp <= 0;
-
-    public ChallengeReward GetResult()
+    
+    public BattleResult GetResult()
     {
         if (_player.CurrentHp <= 0)
-            return new ChallengeReward(false);
+            return new BattleResult(false, 0);
 
-        // Esempio: sblocca abilità se vinci contro un certo nemico
-        string? unlocked = _enemy.Name == "Goblin" ? "Whirlwind" : null;
-
-        return new ChallengeReward(true, unlocked, canChooseUpgrade: true);
+        return new BattleResult(true, 10, new List<string> { "Potion" });
     }
 }

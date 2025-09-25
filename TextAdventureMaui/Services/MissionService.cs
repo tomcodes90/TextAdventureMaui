@@ -58,7 +58,7 @@ public class MissionService
             }
             else
             {
-                Console.WriteLine("[MissionService] Player lost the battle.");
+                Console.WriteLine("[MissionService]  Player lost the battle.");
             }
         };
 

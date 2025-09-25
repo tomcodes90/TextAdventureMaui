@@ -1,56 +1,112 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
              xmlns:viewmodels="clr-namespace:TextAdventureMaui.ViewModels"
              x:Class="TextAdventureMaui.Views.MainHallPage"
-             Title="Main Hall"
-             BackgroundColor="Black">
+             Title="Main Hall">
 
-    <AbsoluteLayout>
+    <Grid RowDefinitions="*,Auto">
 
         <!-- Background -->
-        <Image Source="mainhall.png"
-               Aspect="AspectFill"
-               AbsoluteLayout.LayoutBounds="0,0,1,1"
-               AbsoluteLayout.LayoutFlags="All" />
+        <Image Source="mainhall.png" Aspect="AspectFill" Grid.RowSpan="2"/>
+        <BoxView Color="#66000000" Grid.RowSpan="2"/>
 
-        <!-- Hero Knight (sword) -->
-        <Image Source="knight_sword.png"
-               Aspect="AspectFit"
-               AbsoluteLayout.LayoutBounds="0.5,0.9,200,300"
-               AbsoluteLayout.LayoutFlags="PositionProportional" />
+        <!-- Dark overlay -->
+        <BoxView x:Name="OverlayView"
+                 Grid.RowSpan="2"
+                 Color="#AA000000"
+                 Opacity="0"
+                 IsVisible="{Binding ShowOverlay}">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OverlayTappedCommand}"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
 
-        <!-- Porte -->
-        <CollectionView ItemsSource="{Binding Doors}"
-                        AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
-                        AbsoluteLayout.LayoutFlags="PositionProportional">
+        <!-- Doors in top row -->
+        <CollectionView Grid.Row="0"
+                        ItemsSource="{Binding Doors}"
+                        Margin="30"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Center"
+                        IsEnabled="{Binding ShowOverlay, Converter={StaticResource InverseBoolConverter}}">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="30"/>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="20"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Button Text="{Binding Label}"
                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}, Path=EnterRoomCommand}"
-                            CommandParameter="{Binding .}" />
+                            CommandParameter="{Binding .}"
+                            BackgroundColor="#222831"
+                            TextColor="White"
+                            FontSize="18"
+                            CornerRadius="12"
+                            Padding="15,8"
+                            WidthRequest="180"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- NPCs -->
-        <CollectionView ItemsSource="{Binding Npcs}"
-                        AbsoluteLayout.LayoutBounds="0.5,0.8,-1,-1"
-                        AbsoluteLayout.LayoutFlags="PositionProportional">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="50"/>
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Button Text="{Binding Name}"
-                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}, Path=TalkToNpcCommand}"
-                            CommandParameter="{Binding .}" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
-    </AbsoluteLayout>
+
+        <!-- Bottom row: Player + NPCs -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*" VerticalOptions="End" Margin="20">
+
+            <!-- Player -->
+            <AbsoluteLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End">
+                <!-- Player sprite -->
+                <controls:CharacterView BindingContext="{Binding PlayerCharacter}"
+                                        AbsoluteLayout.LayoutBounds="0.5,1,AutoSize,AutoSize"
+                                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <!-- Player stats panel -->
+                <ContentView x:Name="PlayerPanelControl"
+                             AbsoluteLayout.LayoutBounds="0.5,-0.25,AutoSize,AutoSize"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             IsVisible="{Binding ShowPlayerPanel}">
+                    <ContentView.Content>
+                        <controls:PlayerPanel BindingContext="{Binding CurrentPlayer}" />
+                    </ContentView.Content>
+                </ContentView>
+            </AbsoluteLayout>
+
+            <!-- Maid -->
+            <AbsoluteLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End">
+                <!-- Maid sprite -->
+                <controls:CharacterView BindingContext="{Binding NpcCharacters[0]}"
+                                        AbsoluteLayout.LayoutBounds="0.5,1,AutoSize,AutoSize"
+                                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <!-- Maid dialogue panel -->
+                <ContentView x:Name="MaidyDialoguePanel"
+                             AbsoluteLayout.LayoutBounds="0.5,-0.25,AutoSize,AutoSize"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             IsVisible="{Binding ShowMaidyDialogue, Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}}">
+                    <ContentView.Content>
+                        <controls:DialoguePanel BindingContext="{Binding MaidyDialogueVm}" />
+                    </ContentView.Content>
+                </ContentView>
+            </AbsoluteLayout>
+
+            <!-- Chex -->
+            <AbsoluteLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="End">
+                <!-- Chex sprite -->
+                <controls:CharacterView BindingContext="{Binding NpcCharacters[1]}"
+                                        AbsoluteLayout.LayoutBounds="0.5,1,AutoSize,AutoSize"
+                                        AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                <!-- Chex dialogue panel -->
+                <ContentView x:Name="ChexDialoguePanel"
+                             AbsoluteLayout.LayoutBounds="0.5,-0.25,AutoSize,AutoSize"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             IsVisible="{Binding ShowChexDialogue, Source={RelativeSource AncestorType={x:Type viewmodels:MainHallViewModel}}}">
+                    <ContentView.Content>
+                        <controls:DialoguePanel BindingContext="{Binding ChexDialogueVm}" />
+                    </ContentView.Content>
+                </ContentView>
+            </AbsoluteLayout>
+
+        </Grid>
+    </Grid>
 </ContentPage>

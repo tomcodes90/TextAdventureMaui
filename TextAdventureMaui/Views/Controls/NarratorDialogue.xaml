@@ -20,7 +20,7 @@
 
             <Label x:Name="Label"
                    TextColor="{StaticResource TextPrimary}"
-                   FontSize="18"
+                   FontSize="36"
                    LineHeight="1.4"
                    CharacterSpacing="1"
                    HorizontalOptions="Fill"

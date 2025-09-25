@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TextAdventureMaui.Views.Controls.CharacterCreationPanel">
+
+    <!-- Panel with background for readability -->
+    <Frame BackgroundColor="#222831"
+           CornerRadius="16"
+           Padding="30"
+           HasShadow="True">
+
+        <VerticalStackLayout Spacing="30" HorizontalOptions="Center">
+
+            <!-- Title Banner -->
+            <Label Text="Character Creation"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="Gold"
+                   Margin="0,0,0,20"/>
+
+            <!-- Name input -->
+            <Label Text="Enter your name:" 
+                   TextColor="White"
+                   FontSize="22"
+                   FontAttributes="Bold"/>
+            <Entry Text="{Binding PlayerName}" 
+                   Placeholder="Your hero's name"
+                   FontSize="20"
+                   HeightRequest="50"/>
+            <Label Text="{Binding ValidationMessage}" 
+                   TextColor="Red"
+                   FontSize="18"
+                   IsVisible="{Binding HasValidationError}"/>
+
+            <!-- Weapon selection -->
+            <Label Text="Choose your Destiny:" 
+                   TextColor="White"
+                   FontSize="22"
+                   FontAttributes="Bold"/>
+
+            <HorizontalStackLayout Spacing="40" HorizontalOptions="Center">
+
+                <!-- Sword -->
+                <Frame Padding="10"
+                       CornerRadius="12"
+                       BorderColor="{Binding SwordSelected, Converter={StaticResource BoolToColorConverter}}"
+                       BackgroundColor="#393E46">
+                    <Image Source="knight_sword.png"
+                           HeightRequest="180"
+                           WidthRequest="180">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChooseWeaponCommand}" CommandParameter="Sword"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Frame>
+
+                <!-- Bow -->
+                <Frame Padding="10"
+                       CornerRadius="12"
+                       BorderColor="{Binding BowSelected, Converter={StaticResource BoolToColorConverter}}"
+                       BackgroundColor="#393E46">
+                    <Image Source="knight_bow.png"
+                           HeightRequest="180"
+                           WidthRequest="180">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChooseWeaponCommand}" CommandParameter="Bow"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Frame>
+
+                <!-- Hammer -->
+                <Frame Padding="10"
+                       CornerRadius="12"
+                       BorderColor="{Binding HammerSelected, Converter={StaticResource BoolToColorConverter}}"
+                       BackgroundColor="#393E46">
+                    <Image Source="knight_hammer.png"
+                           HeightRequest="180"
+                           WidthRequest="180">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChooseWeaponCommand}" CommandParameter="Hammer"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Frame>
+
+            </HorizontalStackLayout>
+
+            <!-- Confirm -->
+            <Button Text="Confirm"
+                    FontSize="22"
+                    HeightRequest="60"
+                    WidthRequest="200"
+                    HorizontalOptions="Center"
+                    Command="{Binding ConfirmCommand}"/>
+        </VerticalStackLayout>
+    </Frame>
+</ContentView>

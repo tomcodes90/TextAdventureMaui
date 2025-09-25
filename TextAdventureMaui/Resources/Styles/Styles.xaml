@@ -11,13 +11,12 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource ActionPrimary}, Dark={StaticResource TextPrimary}}" />
     </Style>
 
-
-
-
+    <!-- ===================== -->
     <!-- Label -->
+    <!-- ===================== -->
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
-        <Setter Property="FontFamily" Value="GaramondRegular"/>
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
@@ -27,6 +26,7 @@
     <Style x:Key="BaseButtonStyle" TargetType="Button">
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="TextColor" Value="{StaticResource TextPrimary}"/>
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Padding" Value="10,6"/>
         <Setter Property="CornerRadius" Value="8"/>
@@ -41,6 +41,7 @@
     <!-- Menu Button Style with Icon -->
     <!-- ===================== -->
     <Style x:Key="MenuButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="28"/>
         <Setter Property="WidthRequest" Value="320"/>
         <Setter Property="HorizontalOptions" Value="Start"/>
@@ -81,6 +82,9 @@
         </Setter>
     </Style>
 
+    <!-- ===================== -->
+    <!-- Card Border Style -->
+    <!-- ===================== -->
     <Style x:Key="CardBorderStyle" TargetType="Border">
         <Setter Property="StrokeShape">
             <Setter.Value>
@@ -98,7 +102,6 @@
         </Setter>
     </Style>
 
-
     <!-- ===================== -->
     <!-- Entry / Editor -->
     <!-- ===================== -->
@@ -106,7 +109,7 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray700}}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
@@ -116,7 +119,7 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray700}}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="80"/>
     </Style>
@@ -143,7 +146,7 @@
     <Style x:Key="PickerStyle" TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
@@ -153,7 +156,7 @@
     <Style TargetType="DatePicker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
@@ -163,7 +166,7 @@
     <Style TargetType="TimePicker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontFamily" Value="DungeonFont"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
@@ -183,6 +186,7 @@
 
     <Style TargetType="RadioButton">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextPrimary}, Dark={StaticResource TextPrimary}}" />
+        <Setter Property="FontFamily" Value="DungeonFont"/>
     </Style>
 
     <!-- ===================== -->

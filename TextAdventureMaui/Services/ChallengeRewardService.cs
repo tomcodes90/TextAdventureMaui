@@ -1,10 +1,12 @@
 ﻿using TextAdventureMaui.Models;
-using TextAdventureMaui.Models.Entities;
+using TextAdventureMaui.Services;
 
 namespace TextAdventureMaui.Services;
 
 public class ChallengeRewardService
 {
+    private readonly AbilityFactory _abilityFactory = new();
+
     public void ApplyUpgrade(Player player, string choice)
     {
         switch (choice)
@@ -22,17 +24,14 @@ public class ChallengeRewardService
         }
     }
 
-    public void UnlockAbility(Player player, string abilityName)
+    public void UnlockAbility(Player player, int abilityId)
     {
-        // Qui puoi avere un "catalogo" di abilità predefinite
-        if (abilityName == "Whirlwind")
+        var ability = _abilityFactory.CreateAbilityById(abilityId);
+
+        if (!player.Abilities.Any(a => a.Name == ability.Name))
         {
-            player.Abilities.Add(new Ability(
-                "Whirlwind",
-                new List<string> { "Up", "Down", "Up", "Action" },
-                5,
-                "Un attacco rotante devastante"
-            ));
+            player.Abilities.Add(ability);
+            Console.WriteLine($"Nuova abilità sbloccata: {ability.Name}");
         }
     }
 }

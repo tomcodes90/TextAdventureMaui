@@ -1,0 +1,20 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
+             x:Class="TextAdventureMaui.Views.Controls.BattleSequencePanel"
+             x:Name="Root">
+
+    <Border BackgroundColor="Transparent"
+            Padding="15" HorizontalOptions="Center" VerticalOptions="Center">
+
+        <Grid>
+            <!-- Sequenza nemico -->
+            <controls:SequenceViewer ItemsSource="{Binding EnemySequence, Source={x:Reference Root}}"
+                                     IsVisible="{Binding IsEnemyTurn, Source={x:Reference Root}}" />
+
+            <controls:SequenceViewer ItemsSource="{Binding CurrentInput, Source={x:Reference Root}}"
+                                     IsVisible="{Binding IsEnemyTurn, Source={x:Reference Root}, Converter={StaticResource InverseBoolConverter}}" />
+
+        </Grid>
+    </Border>
+</ContentView>

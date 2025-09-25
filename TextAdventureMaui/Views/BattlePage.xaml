@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
+             xmlns:vm="clr-namespace:TextAdventureMaui.ViewModels"
+             xmlns:models="clr-namespace:TextAdventureMaui.Models.Entities"
              x:Class="TextAdventureMaui.Views.BattlePage"
+             x:DataType="vm:BattleViewModel"
              Title="Battle"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
 
@@ -14,9 +17,7 @@
                                       CharacterName="{Binding Enemy.Name}"
                                       HpPercent="{Binding EnemyHpPercent}"
                                       BorderBrush="{StaticResource ActionPrimary}"
-                                      BarBrush="{StaticResource ActionPrimary}"
-                                      HorizontalOptions="Fill"
-                                      VerticalOptions="Fill"/>
+                                      BarBrush="{StaticResource ActionPrimary}"/>
 
         <!-- Player (Bottom Right) -->
         <controls:BattleCharacterView Grid.Row="3" Grid.Column="1"
@@ -24,111 +25,40 @@
                                       CharacterName="{Binding Player.Name}"
                                       HpPercent="{Binding PlayerHpPercent}"
                                       BorderBrush="{StaticResource ActionPrimary}"
-                                      BarBrush="{StaticResource ActionPrimary}"
-                                      HorizontalOptions="Fill"
-                                      VerticalOptions="Fill"/>
+                                      BarBrush="{StaticResource ActionPrimary}"/>
 
         <!-- Log + Moves (Bottom Left) -->
         <Border Grid.Row="3" Grid.Column="0"
                 Stroke="{StaticResource Gray500Brush}" StrokeShape="RoundRectangle 0"
                 BackgroundColor="{StaticResource Gray900}" Padding="10">
-            <Grid>
+            <Grid RowDefinitions="*" ColumnDefinitions="*">
                 <Label Text="{Binding BattleLog}" FontSize="14"
                        HorizontalOptions="Center" VerticalOptions="Start"
                        TextColor="{StaticResource TextPrimary}"
                        LineBreakMode="WordWrap"/>
 
-                <!-- Lista abilità -->
-                <CollectionView ItemsSource="{Binding Player.Abilities}"
-                                HorizontalOptions="Center"
-                                VerticalOptions="End"
-                                SelectionMode="None">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Vertical" Spacing="2" Padding="5">
-                                <Label Text="{Binding Name}" 
-                                       FontSize="14" 
-                                       TextColor="{StaticResource TextPrimary}" 
-                                       HorizontalOptions="Center"/>
-                                <Label Text="{Binding InputSequenceString}"
-                                       FontSize="12"
-                                       TextColor="{StaticResource TextSecondary}"
-                                       HorizontalOptions="Center"/>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                <controls:AbilityListView Abilities="{Binding Player.Abilities}"
+                                          Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+
             </Grid>
         </Border>
 
-        <!-- Input Viewer (Center) -->
-        <Border Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                BackgroundColor="{StaticResource Gray800}"
-                Stroke="{StaticResource ActionPrimary}" StrokeShape="RoundRectangle 10"
-                Padding="15" HorizontalOptions="Center" VerticalOptions="Center">
-            <CollectionView ItemsSource="{Binding CurrentInput}"
-                            ItemsLayout="HorizontalList"
-                            SelectionMode="None"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Padding="5" BackgroundColor="{StaticResource Gray600}" CornerRadius="5">
-                            <Label Text="{Binding .}" 
-                                   FontSize="18"
-                                   TextColor="{StaticResource TextPrimary}"/>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Border>
+        <!-- Central battle sequence panel (EnemySequence / CurrentInput) -->
+        <controls:BattleSequencePanel Grid.Row="1"
+                                      Grid.RowSpan="2"
+                                      Grid.ColumnSpan="2"
+                                      EnemySequence="{Binding EnemySequence}"
+                                      CurrentInput="{Binding CurrentInput}"
+                                      IsEnemyTurn="{Binding IsEnemyTurn}" />
+        <Entry x:Name="KeyboardCapture"
+               Grid.Row="1"
+               IsVisible="False"
+               TextChanged="KeyboardCapture_TextChanged" />
 
-        <!-- Input Buttons -->
-        <Grid Grid.Row="2" Grid.ColumnSpan="2"
-              HorizontalOptions="Center"
-              VerticalOptions="End"
-              Padding="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Up -->
-            <Button Grid.Row="0" Grid.Column="1"
-                    Text="⬆"
-                    Command="{Binding AddInputCommand}"
-                    CommandParameter="Up"/>
-
-            <!-- Left -->
-            <Button Grid.Row="1" Grid.Column="0"
-                    Text="⬅"
-                    Command="{Binding AddInputCommand}"
-                    CommandParameter="Left"/>
-
-            <!-- Action -->
-            <Button Grid.Row="1" Grid.Column="1"
-                    Text="⚔"
-                    Command="{Binding AddInputCommand}"
-                    CommandParameter="Action"/>
-
-            <!-- Right -->
-            <Button Grid.Row="1" Grid.Column="2"
-                    Text="➡"
-                    Command="{Binding AddInputCommand}"
-                    CommandParameter="Right"/>
-
-            <!-- Down -->
-            <Button Grid.Row="2" Grid.Column="1"
-                    Text="⬇"
-                    Command="{Binding AddInputCommand}"
-                    CommandParameter="Down"/>
-        </Grid>
+        <!-- Combat Pad -->
+        <controls:CombatPad Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            BindingContext="{Binding}" />
 
         <!-- Confirm / Clear -->
         <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2"
@@ -136,8 +66,12 @@
                                VerticalOptions="End"
                                Spacing="10"
                                Margin="0,10">
-            <Button Text="Confirm" Command="{Binding ConfirmInputCommand}" />
-            <Button Text="Clear" Command="{Binding ClearInputCommand}" />
+            <Button Text="Confirm" 
+                    Command="{Binding ConfirmInputCommand}" 
+                    IsEnabled="{Binding IsEnemyTurn, Converter={StaticResource InverseBoolConverter}}" />
+            <Button Text="Clear" 
+                    Command="{Binding ClearInputCommand}" 
+                    IsEnabled="{Binding IsEnemyTurn, Converter={StaticResource InverseBoolConverter}}" />
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>

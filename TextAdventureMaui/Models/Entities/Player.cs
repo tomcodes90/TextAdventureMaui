@@ -14,4 +14,21 @@ public class Player(string? name, int maxHp, int attack) : Entity(name, maxHp, a
         return Abilities.FirstOrDefault(ability =>
             ability.InputSequence.SequenceEqual(inputSequence));
     }
+    
+    public string Sprite
+    {
+        get
+        {
+            if (EquippedWeapon is null) return "knight_sword.png"; // fallback
+
+            return EquippedWeapon.DisplayName switch
+            {
+                "Sword" => "knight_sword.png",
+                "Hammer" => "knight_hammer.png",
+                "Bow" => "knight_bow.png",
+                _ => "knight_sword.png"
+            };
+        }
+    }
+
 }

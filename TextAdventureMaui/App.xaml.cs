@@ -19,28 +19,25 @@ public partial class App : Application
         var shell = new AppShell();
         var window = new Window(shell);
 
+        // 🔹 Ensure we land on MainMenu at startup
+   
+
 #if WINDOWS
-        window.HandlerChanged += (s, e) =>
-        {
-            // Get the WinUI3 Window from the MAUI Window
-            var mauiWindow = window.Handler.PlatformView as Microsoft.UI.Xaml.Window;
-            if (mauiWindow == null)
-                return;
+    window.HandlerChanged += (s, e) =>
+    {
+        var mauiWindow = window.Handler.PlatformView as Microsoft.UI.Xaml.Window;
+        if (mauiWindow == null)
+            return;
 
-            // Get the HWND handle
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(mauiWindow);
+        var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(mauiWindow);
+        var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hwnd);
+        var appWindow = AppWindow.GetFromWindowId(windowId);
 
-            // Get the WindowId
-            var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hwnd);
-
-            // Get the AppWindow
-            var appWindow = AppWindow.GetFromWindowId(windowId);
-
-            // Set full screen
-            appWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
-        };
+        appWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
+    };
 #endif
 
         return window;
     }
+
 }

@@ -1,6 +1,5 @@
 ﻿using TextAdventureMaui.Models;
 using TextAdventureMaui.Models.Missions;
-using TextAdventureMaui.Services;
 using TextAdventureMaui.ViewModels;
 
 namespace TextAdventureMaui.Views;

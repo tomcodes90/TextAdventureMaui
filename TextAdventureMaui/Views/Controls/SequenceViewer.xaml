@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="Root"
+             x:Class="TextAdventureMaui.Views.Controls.SequenceViewer"
+             >
+
+    <CollectionView x:Name="Collection"
+                    HeightRequest="60"
+                    ItemsSource="{Binding ItemsSource, Source={x:Reference Root}}"
+                    ItemsLayout="HorizontalList"
+                    SelectionMode="None"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="x:String">
+                <Frame Padding="5" Margin="2"
+                       BackgroundColor="{StaticResource Gray600}"
+                       CornerRadius="5">
+                    <Image WidthRequest="36" HeightRequest="36"
+                           Source="{Binding Converter={StaticResource InputToIconConverter}}"/>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+
+    </CollectionView>
+</ContentView>

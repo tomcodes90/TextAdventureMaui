@@ -8,9 +8,15 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
 
-        // Only for pages not in ShellContent
+        // Register routes that DI knows
+        Routing.RegisterRoute("mainmenu", typeof(MainMenuPage));
+        Routing.RegisterRoute("mainhall", typeof(MainHallPage));
+        Routing.RegisterRoute("battle", typeof(BattlePage));
+
+        // Secondary pages
         Routing.RegisterRoute(nameof(RoomPage), typeof(RoomPage));
         Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
     }
 }
+
 

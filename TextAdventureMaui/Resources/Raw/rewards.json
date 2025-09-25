@@ -1,0 +1,20 @@
+[
+  {
+    "EnemyId": 1,
+    "CanChooseUpgrade": true,
+    "NewAbilityUnlockedId": 2,
+    "Loot": ["Potion", "Gold Coin"]
+  },
+  {
+    "EnemyId": 2,
+    "CanChooseUpgrade": true,
+    "NewAbilityUnlockedId": null,
+    "Loot": ["Iron Sword", "Healing Herb"]
+  },
+  {
+    "EnemyId": 3,
+    "CanChooseUpgrade": true,
+    "NewAbilityUnlockedId": 4,
+    "Loot": ["Cursed Armor", "Elixir"]
+  }
+]

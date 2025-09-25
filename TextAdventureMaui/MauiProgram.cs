@@ -1,12 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls.Hosting;
-using Microsoft.Maui.Hosting;
 using Plugin.Maui.Audio;
-using TextAdventureMaui.Views;
-using TextAdventureMaui.ViewModels;
-using TextAdventureMaui.Models.Missions;
 using TextAdventureMaui.Services;
+using TextAdventureMaui.ViewModels;
+using TextAdventureMaui.Views;
 
 namespace TextAdventureMaui;
 
@@ -20,29 +17,34 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                fonts.AddFont("EBGaramond-Regular.ttf", "GaramondRegular");
+                fonts.AddFont("DungeonFont.ttf", "DungeonFont");
             });
 
-        // Register services for DI
-        builder.Services.AddSingleton(AudioManager.Current);
+        // ----------------------------------------------------
+        // Core / Third-party services
+        // ----------------------------------------------------
+        builder.Services.AddSingleton<IAudioManager>(AudioManager.Current);
 
-        // Register ViewModels and Pages
-        builder.Services.AddSingleton<MainMenuViewModel>();
-        builder.Services.AddSingleton<MainMenuPage>();
+        // ----------------------------------------------------
+        // Game Services
+        // ----------------------------------------------------
+        builder.Services.AddSingleton<PlayerService>();
         builder.Services.AddSingleton<DialogueService>();
-        // Register MainHall (with default doors + npcs)
-        builder.Services.AddSingleton<MainHall>();
+        builder.Services.AddSingleton<CharacterCreationService>();
+        builder.Services.AddSingleton<AbilityLoader>();
 
-        // Register ViewModel
+        // ----------------------------------------------------
+        // ViewModels
+        // ----------------------------------------------------
+        builder.Services.AddTransient<MainMenuViewModel>();
         builder.Services.AddTransient<MainHallViewModel>();
 
-        // Register Page
+        // ----------------------------------------------------
+        // Pages
+        // ----------------------------------------------------
+        builder.Services.AddTransient<MainMenuPage>();
         builder.Services.AddTransient<MainHallPage>();
-
         builder.Services.AddTransient<BattlePage>();
-     
 
 #if DEBUG
         builder.Logging.AddDebug();

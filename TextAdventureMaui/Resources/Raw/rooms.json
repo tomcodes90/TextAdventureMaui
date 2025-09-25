@@ -1,0 +1,29 @@
+[
+  {
+    "Id": 1,
+    "Name": "Main Hall",
+    "Description": "La sala principale del castello.",
+    "BackgroundImage": "mainhall.png",
+    "MusicTrack": "castle_theme.mp3",
+    "MissionId": 101,
+    "NextRoomId": 2
+  },
+  {
+    "Id": 2,
+    "Name": "Market",
+    "Description": "Un mercante sospetto ti osserva.",
+    "BackgroundImage": "market.png",
+    "MusicTrack": "village_theme.mp3",
+    "MissionId": 102,
+    "NextRoomId": 3
+  },
+  {
+    "Id": 3,
+    "Name": "Library",
+    "Description": "Antichi tomi e simboli magici ovunque.",
+    "BackgroundImage": "library.png",
+    "MusicTrack": "mystery_theme.mp3",
+    "MissionId": 103,
+    "NextRoomId": null
+  }
+]

@@ -7,17 +7,15 @@ public abstract class Weapon(string name, string description, double damage, dou
     public double CritChance { get; protected set; } = critChance;
     public double CritMultiplier { get; protected set; } = critMultiplier;
 
+    public string Icon { get; protected set; } = "default_weapon.png";
+    public string DisplayName { get; protected set; } = name;
+
     protected readonly Random Rng = new();
 
     public double RollDamage()
     {
         bool isCrit = Rng.NextDouble() < CritChance;
-        double finalDamage = Damage;
-
-        if (isCrit)
-            finalDamage *= CritMultiplier;
-
-        return finalDamage;
+        return isCrit ? Damage * CritMultiplier : Damage;
     }
 
     public abstract double WeaponDamage();

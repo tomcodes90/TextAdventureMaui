@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TextAdventureMaui.Views.Controls.DialoguePanel">
+
+    <Frame Padding="15"
+           BackgroundColor="#DD222831"
+           BorderColor="Gold"
+           CornerRadius="12"
+           HasShadow="True"
+           HorizontalOptions="Center"
+           VerticalOptions="End"
+           WidthRequest="400">
+
+        <VerticalStackLayout Spacing="12">
+            <!-- Speaker -->
+            <Label Text="{Binding CurrentNode.Line.Speaker}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="Gold"
+                   HorizontalOptions="Start"/>
+
+            <!-- Dialogue text -->
+            <Label Text="{Binding CurrentNode.Line.Text}"
+                   FontSize="18"
+                   TextColor="White"
+                   LineBreakMode="WordWrap"/>
+
+            <!-- Choices OR Next -->
+            <StackLayout x:Name="ChoicesContainer" IsVisible="{Binding CurrentNode.HasChoices}">
+                <CollectionView ItemsSource="{Binding CurrentNode.Choices}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Button Text="{Binding Text}"
+                                    Command="{Binding BindingContext.ChooseCommand, Source={x:Reference Name=Root}}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#393E46"
+                                    TextColor="White"
+                                    Margin="5"
+                                    CornerRadius="8"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+
+            <!-- Next button (if no choices) -->
+            <Button Text="Next"
+                    IsVisible="{Binding CurrentNode.HasChoices, Converter={StaticResource InverseBoolConverter}}"
+                    Command="{Binding NextCommand}"
+                    BackgroundColor="#393E46"
+                    TextColor="White"
+                    CornerRadius="8"
+                    HorizontalOptions="End"/>
+        </VerticalStackLayout>
+    </Frame>
+</ContentView>

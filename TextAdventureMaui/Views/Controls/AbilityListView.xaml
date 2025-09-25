@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TextAdventureMaui.Models.Entities"
+             xmlns:local="clr-namespace:TextAdventureMaui.Views.Controls"
+             x:Class="TextAdventureMaui.Views.Controls.AbilityListView">
+
+    <CollectionView ItemsSource="{Binding Abilities, Source={RelativeSource AncestorType={x:Type local:AbilityListView}}}"
+                    SelectionMode="None"
+                    Margin="10"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical"
+                             Span="2"/>
+        </CollectionView.ItemsLayout>
+    
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Ability">
+                <Frame BackgroundColor="{StaticResource Gray800}"
+                       BorderColor="{StaticResource ActionPrimary}"
+                       CornerRadius="10"
+                       Padding="10"
+                       Margin="5"
+                       HasShadow="True">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8">
+                        <!-- Nome abilità -->
+                        <Label Text="{Binding Name}"
+                               FontSize="28"
+                               TextColor="{StaticResource TextPrimary}"
+                               HorizontalOptions="Center"/>
+
+                        <!-- Sequenza di input come icone -->
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="6"
+                                               BindableLayout.ItemsSource="{Binding InputSequence}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <Image WidthRequest="36" HeightRequest="36"
+                                           Source="{Binding Converter={StaticResource InputToIconConverter}}" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentView>

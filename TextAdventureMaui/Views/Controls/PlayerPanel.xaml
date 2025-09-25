@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TextAdventureMaui.Views.Controls.PlayerPanel">
+
+    <Frame Padding="15" BackgroundColor="#222831" CornerRadius="12" HasShadow="True" WidthRequest="280">
+        <VerticalStackLayout Spacing="10">
+
+            <!-- Player Name -->
+            <Label Text="{Binding Name}" 
+                   FontSize="24" 
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+
+            <!-- HP -->
+            <HorizontalStackLayout Spacing="5" VerticalOptions="Center" HorizontalOptions="Center">
+                <Label Text="HP:" TextColor="LightGray" FontSize="18"/>
+                <Label Text="{Binding CurrentHp}" TextColor="LawnGreen" FontSize="18"/>
+                <Label Text="/" TextColor="LightGray" FontSize="18"/>
+                <Label Text="{Binding MaxHp}" TextColor="White" FontSize="18"/>
+            </HorizontalStackLayout>
+
+            <!-- Weapon -->
+            <Label Text="{Binding EquippedWeapon.Name}" 
+                   TextColor="Gold" 
+                   FontSize="18"
+                   HorizontalOptions="Center"/>
+
+            <!-- Weapon description -->
+            <Label Text="{Binding EquippedWeapon.Description}" 
+                   TextColor="LightGray"
+                   FontSize="14"
+                   HorizontalOptions="Center"/>
+
+            <!-- Abilities -->
+            <VerticalStackLayout>
+                <Label Text="Abilities:" 
+                       TextColor="White" 
+                       FontSize="18"
+                       Margin="0,10,0,5"/>
+                <CollectionView ItemsSource="{Binding Abilities}"
+                                HeightRequest="120"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Start">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="5" BackgroundColor="#393E46" CornerRadius="6" Margin="2">
+                                <Label Text="{Binding Name}" 
+                                       TextColor="White"
+                                       FontSize="16"
+                                       HorizontalOptions="Center"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+
+        </VerticalStackLayout>
+    </Frame>
+</ContentView>

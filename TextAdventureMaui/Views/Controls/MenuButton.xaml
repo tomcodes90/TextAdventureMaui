@@ -8,9 +8,9 @@
             BackgroundColor="Transparent"
             StrokeThickness="0"
             StrokeShape="RoundRectangle 8">
-        <Grid ColumnDefinitions="50,*" Padding="12">
+        <Grid ColumnDefinitions="50,*" Padding="12" ColumnSpacing="3">
             <Image x:Name="IconImage" Grid.Column="0" HeightRequest="36" WidthRequest="36"/>
-            <Label x:Name="TextLabel" Grid.Column="1" VerticalOptions="Center" FontSize="36" CharacterSpacing="2"/>
+            <Label x:Name="TextLabel" Grid.Column="1" VerticalOptions="Center" FontSize="64" CharacterSpacing="2"/>
         </Grid>
     </Border>
 </ContentView>

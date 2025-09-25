@@ -4,19 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:TextAdventureMaui.Views"
     Title="TextAdventureMaui">
-
     <ShellContent
         Title="Main Menu"
-        ContentTemplate="{DataTemplate views:MainMenuPage}"
-        Route="mainmenu" />
-
-    <ShellContent
-        Title="Main Hall"
-        ContentTemplate="{DataTemplate views:MainHallPage}"
-        Route="mainhall" />
-
-    <ShellContent
-        Title="Battle"
-        ContentTemplate="{DataTemplate views:BattlePage}"
-        Route="battle" />
+        Route="mainmenu"
+        ContentTemplate="{DataTemplate views:MainMenuPage}" />
 </Shell>

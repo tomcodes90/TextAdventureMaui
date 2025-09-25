@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TextAdventureMaui.ViewModels"
+             x:Class="TextAdventureMaui.Views.Controls.CombatPad"
+             x:DataType="vm:BattleViewModel">
+
+    <Grid HorizontalOptions="Center"
+          VerticalOptions="Center"
+          Padding="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Up -->
+        <ImageButton Grid.Row="0" Grid.Column="1"
+                     Source="uparrow.png"
+                     WidthRequest="64" HeightRequest="64"
+                     BackgroundColor="Transparent"
+                     Command="{Binding InputDirectionCommand}"
+                     CommandParameter="Up"/>
+
+        <!-- Left -->
+        <ImageButton Grid.Row="1" Grid.Column="0"
+                     Source="leftarrow.png"
+                     WidthRequest="64" HeightRequest="64"
+                     BackgroundColor="Transparent"
+                     Command="{Binding InputDirectionCommand}"
+                     CommandParameter="Left"/>
+
+        <!-- Action -->
+        <ImageButton Grid.Row="1" Grid.Column="1"
+                     Source="lettera.png"
+                     WidthRequest="64" HeightRequest="64"
+                     BackgroundColor="Transparent"
+                     Command="{Binding InputDirectionCommand}"
+                     CommandParameter="Action"/>
+
+        <!-- Right -->
+        <ImageButton Grid.Row="1" Grid.Column="2"
+                     Source="rightarrow.png"
+                     WidthRequest="64" HeightRequest="64"
+                     BackgroundColor="Transparent"
+                     Command="{Binding InputDirectionCommand}"
+                     CommandParameter="Right"/>
+
+        <!-- Down -->
+        <ImageButton Grid.Row="2" Grid.Column="1"
+                     Source="downarrow.png"
+                     WidthRequest="64" HeightRequest="64"
+                     BackgroundColor="Transparent"
+                     Command="{Binding InputDirectionCommand}"
+                     CommandParameter="Down"/>
+    </Grid>
+</ContentView>

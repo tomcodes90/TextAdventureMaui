@@ -5,26 +5,51 @@
              Title="Reward"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
 
-    <VerticalStackLayout Padding="20" Spacing="20"
-                         VerticalOptions="Center" HorizontalOptions="Center">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20"
+                             VerticalOptions="Center" HorizontalOptions="Center">
 
-        <Label Text="Hai completato la sfida!"
-               FontSize="22"
-               TextColor="{StaticResource TextPrimary}"
-               HorizontalOptions="Center" />
+            <Label Text="Hai completato la sfida!"
+                   FontSize="22"
+                   TextColor="{StaticResource TextPrimary}"
+                   HorizontalOptions="Center" />
 
-        <Label Text="{Binding RewardText}"
-               FontSize="18"
-               TextColor="{StaticResource TextSecondary}"
-               HorizontalOptions="Center" />
+            <Label Text="{Binding RewardText}"
+                   FontSize="18"
+                   TextColor="{StaticResource TextSecondary}"
+                   HorizontalOptions="Center" />
 
-        <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
-            <Button Text="+Damage"
-                    Command="{Binding ChooseUpgradeCommand}"
-                    CommandParameter="Damage"/>
-            <Button Text="+Health"
-                    Command="{Binding ChooseUpgradeCommand}"
-                    CommandParameter="Health"/>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+            <!-- Loot -->
+            <Label Text="Loot ottenuto:"
+                   FontSize="18"
+                   TextColor="{StaticResource TextPrimary}"
+                   HorizontalOptions="Center" 
+                   IsVisible="{Binding HasLoot}" />
+
+            <CollectionView ItemsSource="{Binding Loot}" 
+                            IsVisible="{Binding HasLoot}"
+                            HeightRequest="120">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5"
+                               BackgroundColor="{StaticResource Gray900}">
+                            <Label Text="{Binding .}" 
+                                   TextColor="{StaticResource TextPrimary}" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Upgrade buttons -->
+            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center"
+                                   IsVisible="{Binding Reward.CanChooseUpgrade}">
+                <Button Text="+Damage"
+                        Command="{Binding ChooseUpgradeCommand}"
+                        CommandParameter="Damage"/>
+                <Button Text="+Health"
+                        Command="{Binding ChooseUpgradeCommand}"
+                        CommandParameter="Health"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

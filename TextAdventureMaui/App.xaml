@@ -1,6 +1,7 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:TextAdventureMaui.Converters"
+             xmlns:controls="clr-namespace:TextAdventureMaui.Views.Controls"
              x:Class="TextAdventureMaui.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,11 +10,22 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Register converter -->
+            <!-- Register converters !!!! -->
             <converters:HpConverter x:Key="HpConverter" />
             <converters:HpWidthConverter x:Key="HpWidthConverter" />
             <converters:HpPercentageConverter x:Key="HpPercentageConverter" />
             <converters:PercentageToStarConverter x:Key="PercentageToStarConverter" />
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:InputToIconConverter x:Key="InputToIconConverter"/>
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+            <converters:EqualsConverter x:Key="EqualsConverter"/>
+            <converters:EqualsToBoolConverter x:Key="EqualsToBoolConverter"/>
+            <ControlTemplate x:Key="PlayerPanelTemplate">
+                <controls:PlayerPanel />
+            </ControlTemplate>
+            <ControlTemplate x:Key="DialoguePanelTemplate">
+                <controls:DialoguePanel />
+            </ControlTemplate>
 
         </ResourceDictionary>
     </Application.Resources>
